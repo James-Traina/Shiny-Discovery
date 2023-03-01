@@ -4,13 +4,33 @@ library(maps)
 library(mapproj)
 library(haven)
 
+
 # Load data ----
 broadband <- read_dta("/Users/nabeelqureshi/Downloads/broadband_county_year.dta")
 counties <- readRDS("/Users/nabeelqureshi/App-1/census-app/counties.rds")
+trips <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Trips/")
+list_of_trips <- list()
+
+for (i in trips) {
+  print(i)
+  list_of_trips[[i]] <- get(load(paste0("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Trips/", i)))
+}
+trips <- list_of_trips
+#list_of_trips 1 is 2004
+#list of trips 16 is 2019
+# 2006 to 2018 is [5] to [15]
+
 
 
 # Source helper functions -----
 source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype/helpers.R")
+
+
+
+
+
+
+
 
 # User interface ----
 ui <- fluidPage(
@@ -19,6 +39,9 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       helpText("Visualize broadband by county"),
+      
+      selectInput("displayvVar", label = "Choose a Variable to Display",
+                  choices = c("Trips", "Broadband"), selected = "Broadband"),
       
       sliderInput("yearSlider",
                   label = "year:",
@@ -35,6 +58,14 @@ ui <- fluidPage(
     )
   )
 )
+
+
+
+
+
+
+
+
 
 # Server logic ----
 server <- function(input, output) {
