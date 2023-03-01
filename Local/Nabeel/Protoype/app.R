@@ -5,15 +5,12 @@ library(mapproj)
 library(haven)
 
 # Load data ----
-data <- read_dta("/Users/nabeelqureshi/Downloads/broadband_county_year.dta")
+broadband <- read_dta("/Users/nabeelqureshi/Downloads/broadband_county_year.dta")
 counties <- readRDS("/Users/nabeelqureshi/App-1/census-app/counties.rds")
-head(data)
-wine <- read_dta("/Users/nabeelqureshi/Downloads/wine.dta")
-x <- load("/Users/nabeelqureshi/Documents/Discovery/Shiny-Discovery/Data/Trips/c_trips_2008.RData")
-xx <- load("/Users/nabeelqureshi/Documents/Discovery/Shiny-Discovery/Data/Trips/c_trips_2009.RData")
+
 
 # Source helper functions -----
-source("/Users/nabeelqureshi/Documents/Discovery/Shiny-Discovery/Nabeel R Experiments/Week 1 vis/helpers.R")
+source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype/helpers.R")
 
 # User interface ----
 ui <- fluidPage(
@@ -23,18 +20,10 @@ ui <- fluidPage(
     sidebarPanel(
       helpText("Visualize broadband by county"),
       
-      selectInput("var",
-                  label = "choose a year to display",
-                  choices = c("2006", "2007", "2008", "2009", "2010", "2011",
-                              "2012", "2013", "2014", "2015", "2016", "2017",
-                              "2018"),
-                  selected = "2006"),
-      
-      
-
-      # sliderInput("var",
-      #             label = "year:",
-      #             min = 2006, max = 2018, value = 2006),
+      sliderInput("yearSlider",
+                  label = "year:",
+                  min = 2006, max = 2018, value = 2006,
+                  step = 1, round = TRUE, ticks = TRUE),
 
       sliderInput("range", 
                   label = "Range of intrest:",
@@ -49,24 +38,27 @@ ui <- fluidPage(
 
 # Server logic ----
 server <- function(input, output) {
+  # observeEvent(input$slider1, {
+  #   print(paste0("You have chosen: ", input$slider1 - 2005))
+  # })
   output$map <- renderPlot({
-    data <- switch(input$var, 
-                   "2006" = data[data$year %in% c("2006"),]$broadband,
-                   "2007" = data[data$year %in% c("2007"),]$broadband,
-                   "2008" = data[data$year %in% c("2008"),]$broadband,
-                   "2009" = data[data$year %in% c("2009"),]$broadband,
-                   "2010" = data[data$year %in% c("2010"),]$broadband,
-                   "2011" = data[data$year %in% c("2011"),]$broadband,
-                   "2012" = data[data$year %in% c("2012"),]$broadband,
-                   "2013" = data[data$year %in% c("2013"),]$broadband,
-                   "2014" = data[data$year %in% c("2014"),]$broadband,
-                   "2015" = data[data$year %in% c("2015"),]$broadband,
-                   "2016" = data[data$year %in% c("2016"),]$broadband,
-                   "2017" = data[data$year %in% c("2017"),]$broadband,
-                   "2018" = data[data$year %in% c("2018"),]$broadband)
+    broadband <- switch(input$yearSlider - 2005, 
+                   "2006" = broadband[broadband$year %in% c("2006"),]$broadband,
+                   "2007" = broadband[broadband$year %in% c("2007"),]$broadband,
+                   "2008" = broadband[broadband$year %in% c("2008"),]$broadband,
+                   "2009" = broadband[broadband$year %in% c("2009"),]$broadband,
+                   "2010" = broadband[broadband$year %in% c("2010"),]$broadband,
+                   "2011" = broadband[broadband$year %in% c("2011"),]$broadband,
+                   "2012" = broadband[broadband$year %in% c("2012"),]$broadband,
+                   "2013" = broadband[broadband$year %in% c("2013"),]$broadband,
+                   "2014" = broadband[broadband$year %in% c("2014"),]$broadband,
+                   "2015" = broadband[broadband$year %in% c("2015"),]$broadband,
+                   "2016" = broadband[broadband$year %in% c("2016"),]$broadband,
+                   "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
+                   "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
                    
     
-    color <- switch(input$var, 
+    color <- switch(input$yearSlider - 2005, 
                     "2006" = "red",
                     "2007" = "orange",
                     "2008" = "darkorange",
@@ -82,11 +74,25 @@ server <- function(input, output) {
                     "2018" = "pink",
                     )
     
-    legend <- switch(input$var, 
-                     "% of county with broadband")
+    legend <- switch(input$yearSlider - 2005, 
+                     "2006" = "% of county with broadband in 2006",
+                     "2007" = "% of county with broadband in 2007",
+                     "2008" = "% of county with broadband in 2008",
+                     "2009" = "% of county with broadband in 2009",
+                     "2010" = "% of county with broadband in 2010",
+                     "2011" = "% of county with broadband in 2011",
+                     "2012" = "% of county with broadband in 2012",
+                     "2013" = "% of county with broadband in 2013",
+                     "2014" = "% of county with broadband in 2014",
+                     "2015" = "% of county with broadband in 2015",
+                     "2016" = "% of county with broadband in 2016",
+                     "2017" = "% of county with broadband in 2017",
+                     "2018" = "% of county with broadband in 2018",
+    )
     
-    percent_map(data, color, legend, input$range[1], input$range[2])
+    percent_map(broadband, color, legend, input$range[1], input$range[2])
   })
+  output$value <- renderPrint({input$slider1})
 }
 
 # Run app ----
