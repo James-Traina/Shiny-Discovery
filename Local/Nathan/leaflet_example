@@ -1,0 +1,19 @@
+This is sample code I found,
+This will create a map of the US with every state. To add interactivity so that statistics about each state are displayed when it is clicked, you can use the popup argument in the addPolygons() function. :
+
+library(leaflet)
+
+# create a map of the US with every state
+us_states <- geojsonio::geojson_read("https://eric.clst.org/assets/wiki/uploads/Stuff/gz_2010_us_040_00_500k.json", what = "sp")
+
+# create a vector of statistics for each state
+state_stats <- data.frame(state = names(us_states@data), 
+                          value = rnorm(length(names(us_states@data))))
+
+# create the map
+leaflet(us_states) %>%
+  addTiles() %>%
+  addPolygons(fillColor = "blue", 
+              fillOpacity = 0.5, 
+              weight = 1, 
+              popup = paste0("<b>", state_stats$state, "</b><br>", "Value: ", state_stats$value)) 
