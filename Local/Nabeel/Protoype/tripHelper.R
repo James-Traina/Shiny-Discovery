@@ -1,25 +1,22 @@
 # Note: percent map is designed to work with the counties data set
 # It may not work correctly with other data sets if their row order does
 # not exactly match the order in which the maps package plots counties
-percent_map <- function(var, color, legend.title, min = 0, max = 100) {
 
+#removing the min and max args, we will calculate that within the function
+trips_map <- function(var, color, legend.title) {
+  
   # generate vector of fill colors for map
-  
-  #this creates a list of 100 colors from white to color
   shades <- colorRampPalette(c("white", color))(100)
-
-  # constrain gradient to percents that occur between min and max
-  #this is makking it such that the data is between the range of intrest on the website
-  var <- pmax(var, min)
-  var <- pmin(var, max)
   
-  #cut creates 100 intervals 
-  percents <- as.integer(cut(var, 100,
-    include.lowest = TRUE, ordered = TRUE))
-  #each percent is bound to a unique color
-  fills <- shades[percents]
-  print(percents)
-
+  # constrain gradient to percents that occur between min and max
+  # minVal <- min(var)
+  # maxVal <- max(var)
+  # var <- pmax(var, minVal)
+  # var <- pmin(var, maxVal)
+  fills <- shades[var]
+  print('fillsn')
+  print(fills)
+  
   # plot choropleth map
   # map("county", fill = TRUE, col = fills,
   #   resolution = 0, lty = 0, projection = "polyconic",
@@ -28,22 +25,22 @@ percent_map <- function(var, color, legend.title, min = 0, max = 100) {
   map("county", fill = FALSE, col = "BLUE",
       resolution = 0, lty = 0, projection = "polyconic",
       myborder = 0, mar = c(0,0,0,0))
-
+  
   # overlay state borders
   map("state", col = "white", fill = FALSE, add = TRUE,
-    lty = 1, lwd = 1, projection = "polyconic",
-    myborder = 0, mar = c(0,0,0,0))
-
+      lty = 1, lwd = 1, projection = "polyconic",
+      myborder = 0, mar = c(0,0,0,0))
+  
   # add a legend
   inc <- (max - min) / 4
   legend.text <- c(paste0(min, " % or less"),
-    paste0(min + inc, " %"),
-    paste0(min + 2 * inc, " %"),
-    paste0(min + 3 * inc, " %"),
-    paste0(max, " % or more"))
-
+                   paste0(min + inc, " %"),
+                   paste0(min + 2 * inc, " %"),
+                   paste0(min + 3 * inc, " %"),
+                   paste0(max, " % or more"))
+  
   legend("bottomleft",
-    legend = legend.text,
-    fill = shades[c(1, 25, 50, 75, 100)],
-    title = legend.title)
+         legend = legend.text,
+         fill = shades[c(1, 25, 50, 75, 100)],
+         title = legend.title)
 }

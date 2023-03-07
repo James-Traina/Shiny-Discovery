@@ -12,7 +12,6 @@ trips <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Tri
 list_of_trips <- list()
 
 for (i in trips) {
-  print(i)
   list_of_trips[[i]] <- get(load(paste0("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Trips/", i)))
 }
 trips <- list_of_trips
@@ -24,7 +23,10 @@ trips <- list_of_trips
 
 # Source helper functions -----
 source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype/helpers.R")
+source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype/tripHelper.R")
 
+
+#source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/helpers2.R")
 
 
 
@@ -121,9 +123,9 @@ server <- function(input, output) {
                      "2018" = "% of county with broadband in 2018",
     )
     
-    percent_map(broadband, color, legend, input$range[1], input$range[2])
+    trip_number(trips[1], "red", legend, 18, 1098)
   })
-  output$value <- renderPrint({input$slider1})
+  #output$value <- renderPrint({input$slider1})
 }
 
 # Run app ----
