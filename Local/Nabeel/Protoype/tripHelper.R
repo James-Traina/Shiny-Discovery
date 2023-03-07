@@ -12,17 +12,21 @@ trips_map <- function(var, color, legend.title) {
   # minVal <- min(var)
   # maxVal <- max(var)
   # var <- pmax(var, minVal)
-  # var <- pmin(var, maxVal)
+  # var <- pmin(var, maxVal)\\\
+  print("shades")
+  print(shades)
+  print("var")
+  print(var)
   fills <- shades[var]
-  print('fillsn')
-  print(fills)
+  newFills <- replace(fills, is.na(fills), "orange")
+  print(newFills)
   
   # plot choropleth map
   # map("county", fill = TRUE, col = fills,
   #   resolution = 0, lty = 0, projection = "polyconic",
   #   myborder = 0, mar = c(0,0,0,0))
   
-  map("county", fill = FALSE, col = "BLUE",
+  map("county", fill = TRUE, col = newFills,
       resolution = 0, lty = 0, projection = "polyconic",
       myborder = 0, mar = c(0,0,0,0))
   
@@ -32,6 +36,8 @@ trips_map <- function(var, color, legend.title) {
       myborder = 0, mar = c(0,0,0,0))
   
   # add a legend
+  min <- 33
+  max <- 789
   inc <- (max - min) / 4
   legend.text <- c(paste0(min, " % or less"),
                    paste0(min + inc, " %"),
