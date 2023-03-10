@@ -25,11 +25,11 @@ percent_map <- function(var, color, legend.title, min = 0, max = 100) {
   
   # add a legend
   inc <- (max - min) / 4
-  legend.text <- c(paste0(min, " % or less"),
-                   paste0(min + inc, " %"),
-                   paste0(min + 2 * inc, " %"),
-                   paste0(min + 3 * inc, " %"),
-                   paste0(max, " % or more"))
+  legend.text <- c(paste0(0, " % or less"),
+                   paste0(1, "% - ", 25, "%"),
+                   paste0(26, "% - ", 50, "%"),
+                   paste0(51, "% - ", 75, "%"),
+                   paste0(75, "% - ", 100, "%"))
   
   legend("bottomleft", 
          legend = legend.text, 
