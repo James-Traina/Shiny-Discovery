@@ -4,6 +4,8 @@
 
 #removing the min and max args, we will calculate that within the function
 trips_map <- function(var, color, legend.title) {
+  print(color)
+  var = round(var, 0)
   
   # generate vector of fill colors for map
   shades <- colorRampPalette(c("white", color))(5)
