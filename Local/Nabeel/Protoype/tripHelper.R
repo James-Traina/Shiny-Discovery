@@ -6,8 +6,7 @@
 trips_map <- function(var, color, legend.title) {
   
   # generate vector of fill colors for map
-  shades <- colorRampPalette(c("white", color))(1000)
-  colors <- colorRampPalette(c("white", "red"))(5)
+  shades <- colorRampPalette(c("white", "red"))(5)
   rounds <- round(var, -1)
   
   p1 <- quantile(rounds, .20)
@@ -17,38 +16,25 @@ trips_map <- function(var, color, legend.title) {
   
   
   
-  test <- c()
+  fills <- c()
   for (trip in rounds) {
     if (trip < p1) {
-      append(test, colors[1]) 
+      fills = append(fills, colors[1]) 
     } else if (p1 <= trip & trip < p2) {
-      append(test, colors[2])
+      fills = append(fills, colors[2])
     } else if (p2 <= trip & trip < p3) {
-      append(test, colors[3])
+      fills = append(fills, colors[3])
     } else if (p3 <= trip & trip < p4) {
-      append(test, colors[4])
+      fills = append(fills, colors[4])
     }
     else {
-      append(test, colors[5])
+      fills = append(fills, colors[5])
+      
     }
   }
 
-  print("sample")
-  print(test)
   
-  rounds <- round(var, -1)
-  print("var")
-  # print(rounds)
-  fills <- shades[rounds]
-  newFills <- replace(fills, is.na(fills), "orange")
-  # print(length(unique(newFills)))
-  
-  # plot choropleth map
-  # map("county", fill = TRUE, col = fills,
-  #   resolution = 0, lty = 0, projection = "polyconic",
-  #   myborder = 0, mar = c(0,0,0,0))
-  
-  map("county", fill = TRUE, col = newFills,
+  map("county", fill = TRUE, col = fills,
       resolution = 0, lty = 0, projection = "polyconic",
       myborder = 0, mar = c(0,0,0,0))
   
