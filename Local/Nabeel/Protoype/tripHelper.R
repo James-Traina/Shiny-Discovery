@@ -6,15 +6,13 @@
 trips_map <- function(var, color, legend.title) {
   
   # generate vector of fill colors for map
-  shades <- colorRampPalette(c("white", "red"))(5)
+  shades <- colorRampPalette(c("white", color))(5)
   rounds <- round(var, -1)
   
   p1 <- quantile(rounds, .20)
   p2 <- quantile(rounds, .40)
   p3 <- quantile(rounds, .60)
   p4 <- quantile(rounds, .80)
-  
-  
   
   fills <- c()
   for (trip in rounds) {
@@ -44,17 +42,14 @@ trips_map <- function(var, color, legend.title) {
       myborder = 0, mar = c(0,0,0,0))
   
   # add a legend
-  min <- 33
-  max <- 789
-  inc <- (max - min) / 4
-  legend.text <- c(paste0(min, " % or less"),
-                   paste0(min + inc, " %"),
-                   paste0(min + 2 * inc, " %"),
-                   paste0(min + 3 * inc, " %"),
-                   paste0(max, " % or more"))
+  legend.text <- c(paste0(p1, " or less trips"),
+                   paste0(p1, " - ", p2, " trips"),
+                   paste0(p2, " - ", p3, " trips"),
+                   paste0(p3, " - ", p4, " trips"),
+                   paste0(p4, " or more trips"))
   
   legend("bottomleft",
          legend = legend.text,
-         fill = shades[c(1, 25, 50, 75, 100)],
+         fill = shades[c(1, 2, 3, 4, 5)],
          title = legend.title)
 }
