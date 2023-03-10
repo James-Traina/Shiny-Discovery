@@ -78,9 +78,9 @@ server <- function(input, output) {
   
   
   output$map <- renderPlot({
-    # displayVariable <- switch(input$displayVar,
-    #                           "Broadband" = 1,
-    #                           "Avg Trips" = 2)
+    displayVariable <- switch(input$displayVar,
+                              "Broadband" = 1,
+                              "Avg Trips" = 2)
     
     broadband <- switch(input$yearSlider - 2005, 
                    "2006" = broadband[broadband$year %in% c("2006"),]$broadband,
@@ -98,19 +98,19 @@ server <- function(input, output) {
                    "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
     
     trip <- switch(input$yearSlider - 2005,
-                   "2006" = trips[3]$c_trips_2008.RData$avg_trips,
-                   "2007" = trips[4]$c_trips_2008.RData$avg_trips,
+                   "2006" = trips[3]$c_trips_2006.RData$avg_trips,
+                   "2007" = trips[4]$c_trips_2007.RData$avg_trips,
                    "2008" = trips[5]$c_trips_2008.RData$avg_trips,
-                   "2009" = trips[6]$c_trips_2008.RData$avg_trips,
-                   "2010" = trips[7]$c_trips_2008.RData$avg_trips,
-                   "2011" = trips[8]$c_trips_2008.RData$avg_trips,
-                   "2012" = trips[9]$c_trips_2008.RData$avg_trips,
-                   "2013" = trips[10]$c_trips_2008.RData$avg_trips,
-                   "2014" = trips[11]$c_trips_2008.RData$avg_trips,
-                   "2015" = trips[12]$c_trips_2008.RData$avg_trips,
-                   "2016" = trips[13]$c_trips_2008.RData$avg_trips,
-                   "2017" = trips[14]$c_trips_2008.RData$avg_trips,
-                   "2018" = trips[15]$c_trips_2008.RData$avg_trips,
+                   "2009" = trips[6]$c_trips_2009.RData$avg_trips,
+                   "2010" = trips[7]$c_trips_2010.RData$avg_trips,
+                   "2011" = trips[8]$c_trips_2011.RData$avg_trips,
+                   "2012" = trips[9]$c_trips_2012.RData$avg_trips,
+                   "2013" = trips[10]$c_trips_2013.RData$avg_trips,
+                   "2014" = trips[11]$c_trips_2014.RData$avg_trips,
+                   "2015" = trips[12]$c_trips_2015.RData$avg_trips,
+                   "2016" = trips[13]$c_trips_2016.RData$avg_trips,
+                   "2017" = trips[14]$c_trips_2017.RData$avg_trips,
+                   "2018" = trips[15]$c_trips_2018.RData$avg_trips,
                    )
                    
     
@@ -131,17 +131,15 @@ server <- function(input, output) {
                     )
     
      legend <- paste0("% of county with broadband in ", input$yearSlider)
-     print("displayVariable")
-     # print(displayVariable)
+
     
-     # if (displayVariable == 1) {
-     #   percent_map(broadband, color, legend, input$range[1], input$range[2])
-     # }
-     # if (displayVariable == 2) {
-     #   print("we got here")
-     #   trips_map(trip, color, legend)
-     # }
-     trips_map(trip, color, legend)
+     if (displayVariable == 1) {
+       percent_map(broadband, color, legend, input$range[1], input$range[2])
+     }
+     if (displayVariable == 2) {
+       trips_map(trip, color, legend)
+     }
+     
 
   })
   output$value <- renderPrint({input$slider1})
