@@ -22,7 +22,7 @@ trips <- list_of_trips
 
 
 # Source helper functions -----
-#source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype/helpers.R")
+source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype/helpers.R")
 source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype/tripHelper.R")
 
 
@@ -43,8 +43,8 @@ ui <- fluidPage(
     sidebarPanel(
       helpText("Visualize broadband by county"),
       
-      selectInput("displayvVar", label = "Choose a Variable to Display",
-                  choices = c("Trips", "Broadband"), selected = "Broadband"),
+      selectInput("displayVar", label = "Choose a Variable to Display",
+                  choices = c("Broadband", "Avg Trips"), selected = "Broadband"),
       
       sliderInput("yearSlider",
                   label = "year:",
@@ -75,7 +75,13 @@ server <- function(input, output) {
   # observeEvent(input$slider1, {
   #   print(paste0("You have chosen: ", input$slider1 - 2005))
   # })
+  
+  
   output$map <- renderPlot({
+    # displayVariable <- switch(input$displayVar,
+    #                           "Broadband" = 1,
+    #                           "Avg Trips" = 2)
+    
     broadband <- switch(input$yearSlider - 2005, 
                    "2006" = broadband[broadband$year %in% c("2006"),]$broadband,
                    "2007" = broadband[broadband$year %in% c("2007"),]$broadband,
@@ -90,9 +96,25 @@ server <- function(input, output) {
                    "2016" = broadband[broadband$year %in% c("2016"),]$broadband,
                    "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
                    "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
+    
+    trip <- switch(input$yearSlider - 2005,
+                   "2006" = trips[3]$c_trips_2008.RData$avg_trips,
+                   "2007" = trips[4]$c_trips_2008.RData$avg_trips,
+                   "2008" = trips[5]$c_trips_2008.RData$avg_trips,
+                   "2009" = trips[6]$c_trips_2008.RData$avg_trips,
+                   "2010" = trips[7]$c_trips_2008.RData$avg_trips,
+                   "2011" = trips[8]$c_trips_2008.RData$avg_trips,
+                   "2012" = trips[9]$c_trips_2008.RData$avg_trips,
+                   "2013" = trips[10]$c_trips_2008.RData$avg_trips,
+                   "2014" = trips[11]$c_trips_2008.RData$avg_trips,
+                   "2015" = trips[12]$c_trips_2008.RData$avg_trips,
+                   "2016" = trips[13]$c_trips_2008.RData$avg_trips,
+                   "2017" = trips[14]$c_trips_2008.RData$avg_trips,
+                   "2018" = trips[15]$c_trips_2008.RData$avg_trips,
+                   )
                    
     
-    color <- switch(input$yearSlider - 2005, 
+    color <- switch(input$yearSlider - 2005, # this is temporary to ensure year change is working
                     "2006" = "red",
                     "2007" = "orange",
                     "2008" = "darkorange",
@@ -108,24 +130,19 @@ server <- function(input, output) {
                     "2018" = "pink",
                     )
     
-    legend <- switch(input$yearSlider - 2005, 
-                     "2006" = "% of county with broadband in 2006",
-                     "2007" = "% of county with broadband in 2007",
-                     "2008" = "% of county with broadband in 2008",
-                     "2009" = "% of county with broadband in 2009",
-                     "2010" = "% of county with broadband in 2010",
-                     "2011" = "% of county with broadband in 2011",
-                     "2012" = "% of county with broadband in 2012",
-                     "2013" = "% of county with broadband in 2013",
-                     "2014" = "% of county with broadband in 2014",
-                     "2015" = "% of county with broadband in 2015",
-                     "2016" = "% of county with broadband in 2016",
-                     "2017" = "% of county with broadband in 2017",
-                     "2018" = "% of county with broadband in 2018",
-    )
+     legend <- paste0("% of county with broadband in ", input$yearSlider)
+     print("displayVariable")
+     # print(displayVariable)
     
-    trips_map(trips[1]$c_trips_2004.RData$avg_trips, "red", legend)
-    #percent_map(broadband, color, legend, input$range[1], input$range[2])
+     # if (displayVariable == 1) {
+     #   percent_map(broadband, color, legend, input$range[1], input$range[2])
+     # }
+     # if (displayVariable == 2) {
+     #   print("we got here")
+     #   trips_map(trip, color, legend)
+     # }
+     trips_map(trip, color, legend)
+
   })
   output$value <- renderPrint({input$slider1})
 }

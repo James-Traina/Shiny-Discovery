@@ -7,15 +7,14 @@ trips_map <- function(var, color, legend.title) {
   
   # generate vector of fill colors for map
   shades <- colorRampPalette(c("white", color))(5)
-  rounds <- round(var, -1)
   
-  p1 <- quantile(rounds, .20)
-  p2 <- quantile(rounds, .40)
-  p3 <- quantile(rounds, .60)
-  p4 <- quantile(rounds, .80)
+  p1 <- quantile(var, .20)
+  p2 <- quantile(var, .40)
+  p3 <- quantile(var, .60)
+  p4 <- quantile(var, .80)
   
   fills <- c()
-  for (trip in rounds) {
+  for (trip in var) {
     if (trip < p1) {
       fills = append(fills, colors[1]) 
     } else if (p1 <= trip & trip < p2) {
