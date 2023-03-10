@@ -6,20 +6,42 @@
 trips_map <- function(var, color, legend.title) {
   
   # generate vector of fill colors for map
-  shades <- colorRampPalette(c("white", color))(100)
+  shades <- colorRampPalette(c("white", color))(1000)
+  colors <- colorRampPalette(c("white", "red"))(5)
+  rounds <- round(var, -1)
   
-  # constrain gradient to percents that occur between min and max
-  # minVal <- min(var)
-  # maxVal <- max(var)
-  # var <- pmax(var, minVal)
-  # var <- pmin(var, maxVal)\\\
-  print("shades")
-  print(shades)
+  p1 <- quantile(rounds, .20)
+  p2 <- quantile(rounds, .40)
+  p3 <- quantile(rounds, .60)
+  p4 <- quantile(rounds, .80)
+  
+  
+  
+  test <- c()
+  for (trip in rounds) {
+    if (trip < p1) {
+      append(test, colors[1]) 
+    } else if (p1 <= trip & trip < p2) {
+      append(test, colors[2])
+    } else if (p2 <= trip & trip < p3) {
+      append(test, colors[3])
+    } else if (p3 <= trip & trip < p4) {
+      append(test, colors[4])
+    }
+    else {
+      append(test, colors[5])
+    }
+  }
+
+  print("sample")
+  print(test)
+  
+  rounds <- round(var, -1)
   print("var")
-  print(var)
-  fills <- shades[var]
+  # print(rounds)
+  fills <- shades[rounds]
   newFills <- replace(fills, is.na(fills), "orange")
-  print(newFills)
+  # print(length(unique(newFills)))
   
   # plot choropleth map
   # map("county", fill = TRUE, col = fills,

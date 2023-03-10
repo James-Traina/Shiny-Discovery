@@ -22,10 +22,11 @@ trips <- list_of_trips
 
 
 # Source helper functions -----
-source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype/helpers.R")
-#source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype/tripHelper.R")
+#source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype/helpers.R")
+source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype/tripHelper.R")
 
 
+a
 #source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/helpers2.R")
 
 
