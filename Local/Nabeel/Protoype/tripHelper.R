@@ -3,6 +3,19 @@
 # not exactly match the order in which the maps package plots counties
 
 #removing the min and max args, we will calculate that within the function
+trips <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Trips/")
+list_of_trips <- list()
+
+for (i in trips) {
+  list_of_trips[[i]] <- get(load(paste0("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Trips/", i)))
+}
+trips <- list_of_trips
+
+all_trips <- c()
+for (i in trips) {
+  if (i$panel_year[1] > 2005 & i$panel_year[1] < 2019) {
+    all_trips <- c(all_trips, i$avg_trips) }
+}
 trips_map <- function(var, color, legend.title) {
   print(color)
   var = round(var, 0)
@@ -10,13 +23,13 @@ trips_map <- function(var, color, legend.title) {
   # generate vector of fill colors for map
   shades <- colorRampPalette(c("white", color))(5)
   
-  p1 <- quantile(var, .20)
-  p2 <- quantile(var, .40)
-  p3 <- quantile(var, .60)
-  p4 <- quantile(var, .80)
+  p1 <- quantile(all_trips, .20)
+  p2 <- quantile(all_trips, .40)
+  p3 <- quantile(all_trips, .60)
+  p4 <- quantile(all_trips, .80)
   
   fills <- c()
-  for (trip in var) {
+  for (trip in all_trips) {
     if (trip < p1) {
       fills = append(fills, colors[1]) 
     } else if (p1 <= trip & trip < p2) {
@@ -43,11 +56,11 @@ trips_map <- function(var, color, legend.title) {
       myborder = 0, mar = c(0,0,0,0))
   
   # add a legend
-  legend.text <- c(paste0(p1, " or less trips"),
-                   paste0(p1, " - ", p2, " trips"),
-                   paste0(p2, " - ", p3, " trips"),
-                   paste0(p3, " - ", p4, " trips"),
-                   paste0(p4, " or more trips"))
+  legend.text <- c(paste0(round(p1, 0), " or less trips (20th Percentile)"),
+                   paste0(round(p1, 0), " - ", round(p2, 0), " trips (40th Percentile)" ),
+                   paste0(round(p2, 0), " - ", round(p3, 0), " trips (60th Percentile)"),
+                   paste0(round(p3, 0), " - ", round(p4, 0), " trips (80th Percentile)"),
+                   paste0(round(p4, 0), " or more trips"))
   
   legend("bottomleft",
          legend = legend.text,

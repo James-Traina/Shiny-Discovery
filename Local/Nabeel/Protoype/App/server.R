@@ -54,30 +54,30 @@ shinyServer(function(input, output) {
             )
             
             
-            color <- switch(input$yearSlider - 2005, # this is temporary to ensure year change is working
-                            "2006" = "red",
-                            "2007" = "orange",
-                            "2008" = "darkorange",
-                            "2009" = "yellow",
-                            "2010" = "lightgreen",
-                            "2011" = "green",
-                            "2012" = "darkgreen",
-                            "2013" = "lightblue",
-                            "2014" = "blue",
-                            "2015" = "darkblue",
-                            "2016" = "purple",
-                            "2017" = "darkviolet",
-                            "2018" = "pink",
-            )
+            # color <- switch(input$yearSlider - 2005, # this is temporary to ensure year change is working
+            #                 "2006" = "red",
+            #                 "2007" = "orange",
+            #                 "2008" = "darkorange",
+            #                 "2009" = "yellow",
+            #                 "2010" = "lightgreen",
+            #                 "2011" = "green",
+            #                 "2012" = "darkgreen",
+            #                 "2013" = "lightblue",
+            #                 "2014" = "blue",
+            #                 "2015" = "darkblue",
+            #                 "2016" = "purple",
+            #                 "2017" = "darkviolet",
+            #                 "2018" = "pink",
+            # )
             
             legend <- paste0("% of county with broadband in ", input$yearSlider)
             
             
             if (displayVariable == 1) {
-                percent_map(broadband, color, legend, input$range[1], input$range[2])
+                percent_map(broadband, "red", legend, input$range[1], input$range[2])
             }
             if (displayVariable == 2) {
-                trips_map(trip, color, legend)
+                trips_map(trip, "red", legend)
             }
             
             
