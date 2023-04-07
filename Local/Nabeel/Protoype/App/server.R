@@ -82,7 +82,5 @@ shinyServer(function(input, output) {
             
             
         })
-        output$value <- renderPrint({input$slider1})
+        output$value <- renderPrint({trip})
     })
-runApp("App")
-
