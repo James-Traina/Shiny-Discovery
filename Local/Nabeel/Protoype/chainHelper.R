@@ -19,7 +19,7 @@ chains <- list_of_chains
 all_stores <- c()
 for (i in chains) {
   if (i$panel_year[1] > 2005 & i$panel_year[1] < 2019) {
-    all_trips <- c(all_stores, i$avg_store) }
+    all_stores <- c(all_stores, i$avg_store) }
 }
 stores_map <- function(var, color, legend.title) {
   var = round(var, 0)
