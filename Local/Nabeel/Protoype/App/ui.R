@@ -15,16 +15,6 @@ library(ggplot2)
 
 # Load data ----
 broadband <- read_dta("/Users/nabeelqureshi/Downloads/broadband_county_year.dta")
-chains <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Chain/")
-
-
-list_of_chains <- list()
-for (i in chains) {
-    list_of_chains[[i]] <- get(load(paste0("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Chain/", i)))
-}
-
-
-
 
 
 # Source helper functions -----
@@ -76,3 +66,4 @@ shinyUI(fluidPage(
     )
 
 ))
+

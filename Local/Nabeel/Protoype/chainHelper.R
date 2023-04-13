@@ -1,7 +1,15 @@
+trips <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Trips/")
+list_of_trips <- list()
+
+for (i in trips) {
+  list_of_trips[[i]] <- get(load(paste0("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Trips/", i)))
+}
+trips <- list_of_trips
+
+
 chains <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Chain/")
-
-
 list_of_chains <- list()
+
 for (i in chains) {
   list_of_chains[[i]] <- get(load(paste0("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Chain/", i)))
 }
@@ -63,3 +71,4 @@ stores_map <- function(var, color, legend.title) {
          fill = shades[c(1, 2, 3, 4, 5)],
          title = legend.title)
 }
+

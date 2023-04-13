@@ -21,7 +21,8 @@ shinyServer(function(input, output) {
         output$map <- renderPlot({
             displayVariable <- switch(input$displayVar,
                                       "Broadband" = 1,
-                                      "Avg Trips" = 2)
+                                      "Avg Trips" = 2,
+                                      "Avg Unique Chains Visited" = 3)
             
             broadband <- switch(input$yearSlider - 2005, 
                                 "2006" = broadband[broadband$year %in% c("2006"),]$broadband,
@@ -54,6 +55,22 @@ shinyServer(function(input, output) {
                            "2018" = trips[15]$c_trips_2018.RData$avg_trips,
             )
             
+            chain <- switch(input$yearSlider - 2005,
+                            "2006" = chains[3]$c_store_2006.RData$avg_store,
+                            "2007" = chains[4]$c_store_2006.RData$avg_store,
+                            "2008" = chains[5]$c_store_2006.RData$avg_store,
+                            "2009" = chains[6]$c_store_2006.RData$avg_store,
+                            "2010" = chains[7]$c_store_2006.RData$avg_store,
+                            "2011" = chains[8]$c_store_2006.RData$avg_store,
+                            "2012" = chains[9]$c_store_2006.RData$avg_store,
+                            "2013" = chains[10]$c_store_2006.RData$avg_store,
+                            "2014" = chains[11]$c_store_2006.RData$avg_store,
+                            "2015" = chains[12]$c_store_2006.RData$avg_store,
+                            "2016" = chains[13]$c_store_2006.RData$avg_store,
+                            "2017" = chains[14]$c_store_2006.RData$avg_store,
+                            "2018" = chains[15]$c_store_2006.RData$avg_store
+                            )
+            
             
             # color <- switch(input$yearSlider - 2005, # this is temporary to ensure year change is working
             #                 "2006" = "red",
@@ -79,6 +96,10 @@ shinyServer(function(input, output) {
             }
             if (displayVariable == 2) {
                 trips_map(trip, "red", legend)
+                
+            }
+            if (displayVariable == 3) {
+                stores_map(chain, "red", legend)
             }
             
             
@@ -97,3 +118,4 @@ shinyServer(function(input, output) {
         })
         output$value <- renderPrint({trip})
     })
+
