@@ -7,5 +7,12 @@ df <-data.frame(years, averages)
 ggplot(data=df, aes(x=years, y=averages, group=1)) +
   geom_line()+
   ggtitle("Average Number of Trips per Year")+
-  
+  ylim(140,200)+
   geom_point(color="blue", size=3)
+
+
+
+
+
+
+
