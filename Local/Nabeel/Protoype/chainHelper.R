@@ -1,35 +1,32 @@
-# Note: percent map is designed to work with the counties data set
-# It may not work correctly with other data sets if their row order does
-# not exactly match the order in which the maps package plots counties
+chains <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Chain/")
 
-#removing the min and max args, we will calculate that within the function
-trips <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Trips/")
-list_of_trips <- list()
 
-for (i in trips) {
-  list_of_trips[[i]] <- get(load(paste0("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Trips/", i)))
+list_of_chains <- list()
+for (i in chains) {
+  list_of_chains[[i]] <- get(load(paste0("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Chain/", i)))
 }
-trips <- list_of_trips
 
-all_trips <- c()
-for (i in trips) {
+chains <- list_of_chains
+
+all_stores <- c()
+for (i in chains) {
   if (i$panel_year[1] > 2005 & i$panel_year[1] < 2019) {
-    all_trips <- c(all_trips, i$avg_trips) }
+    all_trips <- c(all_stores, i$avg_store) }
 }
-trips_map <- function(var, color, legend.title) {
+stores_map <- function(var, color, legend.title) {
   var = round(var, 0)
   
   # generate vector of fill colors for map
   shades <- colorRampPalette(c("white", color))(5)
   
-  p1 <- quantile(all_trips, .20)
-  p2 <- quantile(all_trips, .40)
-  p3 <- quantile(all_trips, .60)
-  p4 <- quantile(all_trips, .80)
+  p1 <- quantile(all_stores, .20)
+  p2 <- quantile(all_stores, .40)
+  p3 <- quantile(all_stores, .60)
+  p4 <- quantile(all_stores, .80)
   
   fills <- c()
-  for (trip in all_trips) {
-    if (trip < p1) {
+  for (store in all_stores) {
+    if (store < p1) {
       fills = append(fills, colors[1]) 
     } else if (p1 <= trip & trip < p2) {
       fills = append(fills, colors[2])
@@ -43,7 +40,7 @@ trips_map <- function(var, color, legend.title) {
       
     }
   }
-
+  
   
   map("county", fill = TRUE, col = fills,
       resolution = 0, lty = 0, projection = "polyconic",

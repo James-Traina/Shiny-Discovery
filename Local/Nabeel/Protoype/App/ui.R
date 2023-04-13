@@ -15,17 +15,8 @@ library(ggplot2)
 
 # Load data ----
 broadband <- read_dta("/Users/nabeelqureshi/Downloads/broadband_county_year.dta")
-trips <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Trips/")
 chains <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Chain/")
-list_of_trips <- list()
 
-for (i in trips) {
-    list_of_trips[[i]] <- get(load(paste0("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Trips/", i)))
-}
-trips <- list_of_trips
-#list_of_trips 1 is 2004
-#list of trips 16 is 2019
-# 2006 to 2018 is [5] to [15]
 
 list_of_chains <- list()
 for (i in chains) {
@@ -62,7 +53,7 @@ shinyUI(fluidPage(
                            helpText("Visualize broadband by county"),
 
                            selectInput("displayVar", label = "Choose a Variable to Display",
-                                       choices = c("Broadband", "Avg Trips"), selected = "Broadband"),
+                                       choices = c("Broadband", "Avg Trips", "Avg Unique Chains Visited"), selected = "Broadband"),
 
                            sliderInput("yearSlider",
                                        label = "year:",
