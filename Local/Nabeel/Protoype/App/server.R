@@ -22,22 +22,23 @@ shinyServer(function(input, output) {
             displayVariable <- switch(input$displayVar,
                                       "Broadband" = 1,
                                       "Avg Trips" = 2,
-                                      "Avg Unique Chains Visited" = 3)
+                                      "Avg Unique Chains Visited" = 3,
+                                      "Avg Unique Brands Purchased" = 4)
             
             broadband <- switch(input$yearSlider - 2005, 
-                                "2006" = broadband[broadband$year %in% c("2006"),]$broadband,
-                                "2007" = broadband[broadband$year %in% c("2007"),]$broadband,
-                                "2008" = broadband[broadband$year %in% c("2008"),]$broadband,
-                                "2009" = broadband[broadband$year %in% c("2009"),]$broadband,
-                                "2010" = broadband[broadband$year %in% c("2010"),]$broadband,
-                                "2011" = broadband[broadband$year %in% c("2011"),]$broadband,
-                                "2012" = broadband[broadband$year %in% c("2012"),]$broadband,
-                                "2013" = broadband[broadband$year %in% c("2013"),]$broadband,
-                                "2014" = broadband[broadband$year %in% c("2014"),]$broadband,
-                                "2015" = broadband[broadband$year %in% c("2015"),]$broadband,
-                                "2016" = broadband[broadband$year %in% c("2016"),]$broadband,
-                                "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
-                                "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
+                            "2006" = broadband[broadband$year %in% c("2006"),]$broadband,
+                            "2007" = broadband[broadband$year %in% c("2007"),]$broadband,
+                            "2008" = broadband[broadband$year %in% c("2008"),]$broadband,
+                            "2009" = broadband[broadband$year %in% c("2009"),]$broadband,
+                            "2010" = broadband[broadband$year %in% c("2010"),]$broadband,
+                            "2011" = broadband[broadband$year %in% c("2011"),]$broadband,
+                            "2012" = broadband[broadband$year %in% c("2012"),]$broadband,
+                            "2013" = broadband[broadband$year %in% c("2013"),]$broadband,
+                            "2014" = broadband[broadband$year %in% c("2014"),]$broadband,
+                            "2015" = broadband[broadband$year %in% c("2015"),]$broadband,
+                            "2016" = broadband[broadband$year %in% c("2016"),]$broadband,
+                            "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
+                            "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
             
             trip <- switch(input$yearSlider - 2005,
                            "2006" = trips[3]$c_trips_2006.RData$avg_trips,
@@ -57,18 +58,34 @@ shinyServer(function(input, output) {
             
             chain <- switch(input$yearSlider - 2005,
                             "2006" = chains[3]$c_store_2006.RData$avg_store,
-                            "2007" = chains[4]$c_store_2006.RData$avg_store,
-                            "2008" = chains[5]$c_store_2006.RData$avg_store,
-                            "2009" = chains[6]$c_store_2006.RData$avg_store,
-                            "2010" = chains[7]$c_store_2006.RData$avg_store,
-                            "2011" = chains[8]$c_store_2006.RData$avg_store,
-                            "2012" = chains[9]$c_store_2006.RData$avg_store,
-                            "2013" = chains[10]$c_store_2006.RData$avg_store,
-                            "2014" = chains[11]$c_store_2006.RData$avg_store,
-                            "2015" = chains[12]$c_store_2006.RData$avg_store,
-                            "2016" = chains[13]$c_store_2006.RData$avg_store,
-                            "2017" = chains[14]$c_store_2006.RData$avg_store,
-                            "2018" = chains[15]$c_store_2006.RData$avg_store
+                            "2007" = chains[4]$c_store_2007.RData$avg_store,
+                            "2008" = chains[5]$c_store_2008.RData$avg_store,
+                            "2009" = chains[6]$c_store_2009.RData$avg_store,
+                            "2010" = chains[7]$c_store_2010.RData$avg_store,
+                            "2011" = chains[8]$c_store_2011.RData$avg_store,
+                            "2012" = chains[9]$c_store_2012.RData$avg_store,
+                            "2013" = chains[10]$c_store_2013.RData$avg_store,
+                            "2014" = chains[11]$c_store_2014.RData$avg_store,
+                            "2015" = chains[12]$c_store_2015.RData$avg_store,
+                            "2016" = chains[13]$c_store_2016.RData$avg_store,
+                            "2017" = chains[14]$c_store_2017.RData$avg_store,
+                            "2018" = chains[15]$c_store_2018.RData$avg_store
+                            )
+            
+            brand <- switch(input$yearSlider - 2005,
+                            "2006" = brands[3]$c_brand_2006.RData$avg_brand,
+                            "2007" = brands[4]$c_brand_2007.RData$avg_brand,
+                            "2008" = brands[5]$c_brand_2008.RData$avg_brand,
+                            "2009" = brands[6]$c_brand_2009.RData$avg_brand,
+                            "2010" = brands[7]$c_brand_2010.RData$avg_brand,
+                            "2011" = brands[8]$c_brand_2011.RData$avg_brand,
+                            "2012" = brands[9]$c_brand_2012.RData$avg_brand,
+                            "2013" = brands[10]$c_brand_2013.RData$avg_brand,
+                            "2014" = brands[11]$c_brand_2014.RData$avg_brand,
+                            "2015" = brands[12]$c_brand_2015.RData$avg_brand,
+                            "2016" = brands[13]$c_brand_2016.RData$avg_brand,
+                            "2017" = brands[14]$c_brand_2017.RData$avg_brand,
+                            "2018" = brands[15]$c_brand_2018.RData$avg_brand,
                             )
             
             
@@ -100,6 +117,9 @@ shinyServer(function(input, output) {
             }
             if (displayVariable == 3) {
                 stores_map(chain, "red", legend)
+            }
+            if (displayVariable == 4) {
+                brands_map(brand, "red", legend)
             }
             
             

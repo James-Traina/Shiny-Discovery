@@ -1,37 +1,38 @@
-chains <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Chain/")
-list_of_chains <- list()
+brands <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Brand/")
+list_of_brands <- list()
 
-for (i in chains) {
-  list_of_chains[[i]] <- get(load(paste0("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Chain/", i)))
+for (i in brands) {
+  list_of_brands[[i]] <- get(load(paste0("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Brand/", i)))
 }
+brands <- list_of_brands
 
-chains <- list_of_chains
 
-all_stores <- c()
-for (i in chains) {
+
+all_brands <- c()
+for (i in brands) {
   if (i$panel_year[1] > 2005 & i$panel_year[1] < 2019) {
-    all_stores <- c(all_stores, i$avg_store) }
+    all_brands <- c(all_brands, i$avg_brand) }
 }
-stores_map <- function(var, color, legend.title) {
+brands_map <- function(var, color, legend.title) {
   var = round(var, 0)
   
   # generate vector of fill colors for map
   shades <- colorRampPalette(c("white", color))(5)
   
-  p1 <- quantile(all_stores, .20)
+  p1 <- quantile(all_brands, .20)
   p2 <- quantile(all_stores, .40)
-  p3 <- quantile(all_stores, .60)
-  p4 <- quantile(all_stores, .80)
+  p3 <- quantile(all_brands, .60)
+  p4 <- quantile(all_brands, .80)
   
   fills <- c()
-  for (store in all_stores) {
-    if (store < p1) {
+  for (b in all_brands) {
+    if (b < p1) {
       fills = append(fills, colors[1]) 
-    } else if (p1 <= store & store < p2) {
+    } else if (p1 <= b & b < p2) {
       fills = append(fills, colors[2])
-    } else if (p2 <= store & store < p3) {
+    } else if (p2 <= b & b < p3) {
       fills = append(fills, colors[3])
-    } else if (p3 <= store & store < p4) {
+    } else if (p3 <= b & b < p4) {
       fills = append(fills, colors[4])
     }
     else {

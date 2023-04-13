@@ -43,7 +43,8 @@ shinyUI(fluidPage(
                            helpText("Visualize broadband by county"),
 
                            selectInput("displayVar", label = "Choose a Variable to Display",
-                                       choices = c("Broadband", "Avg Trips", "Avg Unique Chains Visited"), selected = "Broadband"),
+                                       choices = c("Broadband", "Avg Trips", "Avg Unique Chains Visited",
+                                                   "Avg Unique Brands Purchased"), selected = "Broadband"),
 
                            sliderInput("yearSlider",
                                        label = "year:",
