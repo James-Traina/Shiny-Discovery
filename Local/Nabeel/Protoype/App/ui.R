@@ -15,8 +15,8 @@ library(ggplot2)
 
 # Load data ----
 broadband <- read_dta("/Users/nabeelqureshi/Downloads/broadband_county_year.dta")
-counties <- readRDS("/Users/nabeelqureshi/App-1/census-app/counties.rds")
 trips <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Trips/")
+chains <- list.files("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Chain/")
 list_of_trips <- list()
 
 for (i in trips) {
@@ -26,6 +26,13 @@ trips <- list_of_trips
 #list_of_trips 1 is 2004
 #list of trips 16 is 2019
 # 2006 to 2018 is [5] to [15]
+
+list_of_chains <- list()
+for (i in chains) {
+    list_of_chains[[i]] <- get(load(paste0("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Chain/", i)))
+}
+
+
 
 
 
