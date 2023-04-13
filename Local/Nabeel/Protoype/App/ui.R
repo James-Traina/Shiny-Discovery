@@ -11,6 +11,7 @@ library(shiny)
 library(maps)
 library(mapproj)
 library(haven)
+library(ggplot2)
 
 # Load data ----
 broadband <- read_dta("/Users/nabeelqureshi/Downloads/broadband_county_year.dta")
@@ -67,36 +68,13 @@ shinyUI(fluidPage(
                        ),
 
                        mainPanel(
-                           plotOutput("map")
+                           plotOutput("map"),
+                           plotOutput("plot"),
                        )
                    )
                ),
                tabPanel("Component 2"),
                tabPanel("Component 3")
     )
-    # titlePanel("Broadband Visualization"),
-    # 
-    # sidebarLayout(
-    #     sidebarPanel(
-    #         helpText("Visualize broadband by county"),
-    #         
-    #         selectInput("displayVar", label = "Choose a Variable to Display",
-    #                     choices = c("Broadband", "Avg Trips"), selected = "Broadband"),
-    #         
-    #         sliderInput("yearSlider",
-    #                     label = "year:",
-    #                     min = 2006, max = 2018, value = 2006,
-    #                     step = 1, round = TRUE, ticks = TRUE),
-    #         
-    #         sliderInput("range", 
-    #                     label = "Range of intrest:",
-    #                     min = 0, max = 100, value = c(0,100))
-    #     ),
-    #     
-    #     mainPanel(
-    #         tabsetPanel("Panel1"),
-    #         tabsetPanel()
-    #         plotOutput("map")
-    #     )
-    # )
+
 ))
