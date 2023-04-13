@@ -35,7 +35,7 @@ source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-    navbarPage("My Application",
+    navbarPage("Consumer Behavior and the Rise of Broadband",
                tabPanel(
                    "Broadband",
                    sidebarLayout(
@@ -63,7 +63,10 @@ shinyUI(fluidPage(
                    )
                ),
                tabPanel("Component 2"),
-               tabPanel("Component 3")
+               tabPanel("Trip Frequency"),
+               tabPanel("Total Spending"),
+               tabPanel("Unique Chains Visited"),
+               tabPanel("Unique Brands Purchased")
     )
 
 ))
