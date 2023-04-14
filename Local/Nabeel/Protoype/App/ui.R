@@ -58,7 +58,7 @@ shinyUI(fluidPage(
                        ),
 
                        mainPanel(
-                           plotOutput("map"),
+                           plotOutput("broadbandMap"),
                            #plotOutput("plot"),
                            plotOutput("boxplots")
                        )
@@ -67,22 +67,66 @@ shinyUI(fluidPage(
                tabPanel("Trip Frequency",
                         sidebarLayout(
                           sidebarPanel(
-                            sliderInput("yearSlider",
+                            sliderInput("tripYearSlider",
                                         label = "year:",
                                         min = 2006, max = 2018, value = 2006,
                                         step = 1, round = TRUE, ticks = TRUE),
                             
-                            sliderInput("range",
+                            sliderInput("tripRange",
                                         label = "Range of intrest:",
                                         min = 0, max = 100, value = c(0,100))
                         ),
-                        mainPanel(plotOutput("plot")
+                        mainPanel(plotOutput("tripsMap")
                           )
                         )
                         ),
-               tabPanel("Total Spending"),
-               tabPanel("Unique Chains Visited"),
-               tabPanel("Unique Brands Purchased")
+               # tabPanel("Total Spending",
+               #          sidebarLayout(
+               #            sidebarPanel(
+               #              sliderInput("spendYearSlider",
+               #                          label = "year:",
+               #                          min = 2006, max = 2018, value = 2006,
+               #                          step = 1, round = TRUE, ticks = TRUE),
+               #              
+               #              sliderInput("spendRange",
+               #                          label = "Range of intrest:",
+               #                          min = 0, max = 100, value = c(0,100))
+               #            ),
+               #            mainPanel(plotOutput(#"tripsMap"
+               #                                 )
+               #            )
+               #          )),
+               tabPanel("Unique Chains Visited",
+                        sidebarLayout(
+                          sidebarPanel(
+                            sliderInput("chainYearSlider",
+                                        label = "year:",
+                                        min = 2006, max = 2018, value = 2006,
+                                        step = 1, round = TRUE, ticks = TRUE),
+                            
+                            sliderInput("chainRange",
+                                        label = "Range of intrest:",
+                                        min = 0, max = 100, value = c(0,100))
+                          ),
+                          mainPanel(plotOutput("chainsMap")
+                          )
+                        )
+                        ),
+               tabPanel("Unique Brands Purchased",
+                        sidebarLayout(
+                          sidebarPanel(
+                            sliderInput("brandsYearSlider",
+                                        label = "year:",
+                                        min = 2006, max = 2018, value = 2006,
+                                        step = 1, round = TRUE, ticks = TRUE),
+                            
+                            sliderInput("brandsRange",
+                                        label = "Range of intrest:",
+                                        min = 0, max = 100, value = c(0,100))
+                          ),
+                          mainPanel(plotOutput("brandsMap")
+                          )
+                        ))
     )
 
 ))
