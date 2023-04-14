@@ -120,6 +120,11 @@ shinyServer(function(input, output) {
                 ylim(140,200)+
                 geom_point(color="blue", size=3)
         })
+        
+        output$boxplots <- renderPlot({
+            ggplot(data = broadband, aes(x=year, y=broadband)) + 
+                geom_boxplot(aes(group = year))
+        })
         output$value <- renderPrint({trip})
     })
 

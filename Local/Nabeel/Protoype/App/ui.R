@@ -17,6 +17,7 @@ library(ggplot2)
 broadband <- read_dta("/Users/nabeelqureshi/Downloads/broadband_county_year.dta")
 
 
+
 # Source helper functions -----
 source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype/helpers.R")
 source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype/tripHelper.R")
@@ -58,12 +59,27 @@ shinyUI(fluidPage(
 
                        mainPanel(
                            plotOutput("map"),
-                           plotOutput("plot"),
+                           #plotOutput("plot"),
+                           plotOutput("boxplots")
                        )
                    )
                ),
-               tabPanel("Component 2"),
-               tabPanel("Trip Frequency"),
+               tabPanel("Trip Frequency",
+                        sidebarLayout(
+                          sidebarPanel(
+                            sliderInput("yearSlider",
+                                        label = "year:",
+                                        min = 2006, max = 2018, value = 2006,
+                                        step = 1, round = TRUE, ticks = TRUE),
+                            
+                            sliderInput("range",
+                                        label = "Range of intrest:",
+                                        min = 0, max = 100, value = c(0,100))
+                        ),
+                        mainPanel(plotOutput("plot")
+                          )
+                        )
+                        ),
                tabPanel("Total Spending"),
                tabPanel("Unique Chains Visited"),
                tabPanel("Unique Brands Purchased")
