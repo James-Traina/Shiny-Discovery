@@ -111,6 +111,27 @@ shinyServer(function(input, output) {
             ggplot(data = broadband, aes(x=year, y=broadband)) + 
                 geom_boxplot(aes(group = year))
         })
-        output$value <- renderPrint({trip})
+        output$tripsScatter <- renderPlot({
+          broadband08 <- broadband[broadband$year %in% c("2008"),]
+          broadbandTrips <- merge(broadband08, trips$c_trips_2008.RData, by.x = "county", by.y = "cfips")
+          ggplot(broadbandTrips, aes(x=broadband, y=avg_trips)) + geom_point()
+        })
+        
+        output$chainsScatter <- renderPlot({
+          broadband08 <- broadband[broadband$year %in% c("2008"),]
+          broadbandChains <- merge(broadband08, chains$c_store_2008.RData, by.x = "county", by.y = "cfips")
+          ggplot(broadbandTrips, aes(x=broadband, y=avg_store)) + geom_point()
+        })
+        
+        output$brandsScatter <- renderPlot({
+          broadband08 <- broadband[broadband$year %in% c("2008"),]
+          broadbandBrands <- merge(broadband08, brands$c_brand_2008.RData, by.x = "county", by.y = "cfips")
+          ggplot(broadbandTrips, aes(x=broadband, y=avg_brand)) + geom_point()
+        })
     })
+
+
+
+
+
 

@@ -72,7 +72,8 @@ shinyUI(fluidPage(
                                         min = 0, max = 100, value = c(0,100))
                         ),
                         mainPanel(plotOutput("tripsMap"),
-                                  plotOutput("plot")
+                                  plotOutput("plot"),
+                                  plotOutput("tripsScatter")
                           )
                         )
                         ),
