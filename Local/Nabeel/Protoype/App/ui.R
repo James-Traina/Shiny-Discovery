@@ -49,7 +49,8 @@ shinyUI(fluidPage(
 
                            sliderInput("range",
                                        label = "Range of intrest:",
-                                       min = 0, max = 100, value = c(0,100))
+                                       min = 0, max = 100, value = c(0,100)),
+                           p("blah blah more text here")
                        ),
 
                        mainPanel(
@@ -69,7 +70,9 @@ shinyUI(fluidPage(
                             
                             sliderInput("tripRange",
                                         label = "Range of intrest:",
-                                        min = 0, max = 100, value = c(0,100))
+                                        min = 0, max = 100, value = c(0,100)),
+                            h3("Here we can see the relationship between the number 
+                              of trips made to stores and the amount of broadband access in that county")
                         ),
                         mainPanel(plotOutput("tripsMap"),
                                   plotOutput("plot"),
@@ -77,22 +80,7 @@ shinyUI(fluidPage(
                           )
                         )
                         ),
-               # tabPanel("Total Spending",
-               #          sidebarLayout(
-               #            sidebarPanel(
-               #              sliderInput("spendYearSlider",
-               #                          label = "year:",
-               #                          min = 2006, max = 2018, value = 2006,
-               #                          step = 1, round = TRUE, ticks = TRUE),
-               #              
-               #              sliderInput("spendRange",
-               #                          label = "Range of intrest:",
-               #                          min = 0, max = 100, value = c(0,100))
-               #            ),
-               #            mainPanel(plotOutput(#"tripsMap"
-               #                                 )
-               #            )
-               #          )),
+
                tabPanel("Unique Chains Visited",
                         sidebarLayout(
                           sidebarPanel(
@@ -105,7 +93,8 @@ shinyUI(fluidPage(
                                         label = "Range of intrest:",
                                         min = 0, max = 100, value = c(0,100))
                           ),
-                          mainPanel(plotOutput("chainsMap")
+                          mainPanel(plotOutput("chainsMap"),
+                                    plotOutput("chainsScatter")
                           )
                         )
                         ),
@@ -122,6 +111,7 @@ shinyUI(fluidPage(
                                         min = 0, max = 100, value = c(0,100))
                           ),
                           mainPanel(plotOutput("brandsMap"),
+                                    plotOutput("brandsScatter")
                           )
                         ))
     )

@@ -13,5 +13,7 @@ broadbandBrands <- merge(broadband08, brands$c_brand_2008.RData, by.x = "county"
 
 ggplot(broadbandTrips, aes(x=broadband, y=avg_trips)) + geom_point()
 
+ggplot(broadbandTrips, aes(x=broadband, y=avg_trips)) + geom_point()
+
 
 

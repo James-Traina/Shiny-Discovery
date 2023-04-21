@@ -120,13 +120,13 @@ shinyServer(function(input, output) {
         output$chainsScatter <- renderPlot({
           broadband08 <- broadband[broadband$year %in% c("2008"),]
           broadbandChains <- merge(broadband08, chains$c_store_2008.RData, by.x = "county", by.y = "cfips")
-          ggplot(broadbandTrips, aes(x=broadband, y=avg_store)) + geom_point()
+          ggplot(broadbandChains, aes(x=broadband, y=avg_store)) + geom_point()
         })
         
         output$brandsScatter <- renderPlot({
           broadband08 <- broadband[broadband$year %in% c("2008"),]
           broadbandBrands <- merge(broadband08, brands$c_brand_2008.RData, by.x = "county", by.y = "cfips")
-          ggplot(broadbandTrips, aes(x=broadband, y=avg_brand)) + geom_point()
+          ggplot(broadbandBrands, aes(x=broadband, y=avg_brand)) + geom_point()
         })
     })
 
