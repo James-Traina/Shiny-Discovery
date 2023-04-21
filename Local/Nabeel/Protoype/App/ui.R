@@ -27,11 +27,6 @@ source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Local/Nabeel/Protoype
 #source("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/helpers2.R")
 
 
-
-
-
-
-
 # User interface ----
 
 # Define UI for application that draws a histogram
@@ -59,7 +54,7 @@ shinyUI(fluidPage(
 
                        mainPanel(
                            plotOutput("broadbandMap"),
-                           #plotOutput("plot"),
+                           #plotOutput("plot"),,
                            plotOutput("boxplots")
                        )
                    )
@@ -76,7 +71,8 @@ shinyUI(fluidPage(
                                         label = "Range of intrest:",
                                         min = 0, max = 100, value = c(0,100))
                         ),
-                        mainPanel(plotOutput("tripsMap")
+                        mainPanel(plotOutput("tripsMap"),
+                                  plotOutput("plot")
                           )
                         )
                         ),
@@ -124,7 +120,7 @@ shinyUI(fluidPage(
                                         label = "Range of intrest:",
                                         min = 0, max = 100, value = c(0,100))
                           ),
-                          mainPanel(plotOutput("brandsMap")
+                          mainPanel(plotOutput("brandsMap"),
                           )
                         ))
     )
