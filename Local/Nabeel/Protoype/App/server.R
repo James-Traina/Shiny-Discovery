@@ -172,7 +172,7 @@ shinyServer(function(input, output) {
         })
         
         output$boxplots <- renderPlot({
-            ggplot(data = broadband, aes(x=year, y=broadband, color=year)) + 
+            ggplot(data = broadband, aes(x=year, y=broadband, color=year, fill=year)) + 
                 geom_boxplot(aes(group = year))
         })
         output$tripsScatter <- renderPlot({
