@@ -254,8 +254,41 @@ shinyServer(function(input, output) {
         })
         
         output$brandsScatter <- renderPlot({
-          broadband08 <- broadband[broadband$year %in% c("2008"),]
-          broadbandBrands <- merge(broadband08, brands$c_brand_2008.RData, by.x = "county", by.y = "cfips")
+          
+          broadband <- switch(input$tripYearSlider - 2005, 
+                              
+                              "2006" = broadband[broadband$year %in% c("2006"),],
+                              "2007" = broadband[broadband$year %in% c("2007"),],
+                              "2008" = broadband[broadband$year %in% c("2008"),],
+                              "2009" = broadband[broadband$year %in% c("2009"),],
+                              "2010" = broadband[broadband$year %in% c("2010"),],
+                              "2011" = broadband[broadband$year %in% c("2011"),],
+                              "2012" = broadband[broadband$year %in% c("2012"),],
+                              "2013" = broadband[broadband$year %in% c("2013"),],
+                              "2014" = broadband[broadband$year %in% c("2014"),],
+                              "2015" = broadband[broadband$year %in% c("2015"),],
+                              "2016" = broadband[broadband$year %in% c("2016"),],
+                              "2017" = broadband[broadband$year %in% c("2017"),],
+                              "2018" = broadband[broadband$year %in% c("2018"),]
+          )
+          
+          brand <- switch(input$brandsYearSlider - 2005,
+                          "2006" = brands[3]$c_brand_2006.RData,
+                          "2007" = brands[4]$c_brand_2007.RData,
+                          "2008" = brands[5]$c_brand_2008.RData,
+                          "2009" = brands[6]$c_brand_2009.RData,
+                          "2010" = brands[7]$c_brand_2010.RData,
+                          "2011" = brands[8]$c_brand_2011.RData,
+                          "2012" = brands[9]$c_brand_2012.RData,
+                          "2013" = brands[10]$c_brand_2013.RData,
+                          "2014" = brands[11]$c_brand_2014.RData,
+                          "2015" = brands[12]$c_brand_2015.RData,
+                          "2016" = brands[13]$c_brand_2016.RData,
+                          "2017" = brands[14]$c_brand_2017.RData,
+                          "2018" = brands[15]$c_brand_2018.RData,
+          )
+          
+          broadbandBrands <- merge(broadband, brand, by.x = "county", by.y = "cfips")
           ggplot(broadbandBrands, aes(x=broadband, y=avg_brand, color=broadband)) + geom_point()
         })
     })
