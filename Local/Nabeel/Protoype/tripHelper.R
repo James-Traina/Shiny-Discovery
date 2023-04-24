@@ -9,7 +9,7 @@ list_of_trips <- list()
 for (i in trips) {
   list_of_trips[[i]] <- get(load(paste0("/Users/nabeelqureshi/Documents/7DE/Shiny-Discovery/Data/Trips/", i)))
 }
-trips <- list_of_trips
+trips <- list_of_trips                                                                                               
 
 all_trips <- c()
 for (i in trips) {
@@ -18,6 +18,8 @@ for (i in trips) {
 }
 trips_map <- function(var, color, legend.title) {
   var = round(var, 0)
+  print(var)
+  print("printing var")
   
   # generate vector of fill colors for map
   shades <- colorRampPalette(c("white", color))(5)
@@ -28,7 +30,7 @@ trips_map <- function(var, color, legend.title) {
   p4 <- quantile(all_trips, .80)
   
   fills <- c()
-  for (trip in all_trips) {
+  for (trip in var) {
     if (trip < p1) {
       fills = append(fills, colors[1]) 
     } else if (p1 <= trip & trip < p2) {

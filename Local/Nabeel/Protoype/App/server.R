@@ -35,7 +35,7 @@ shinyServer(function(input, output) {
         })
         
         output$tripsMap <- renderPlot({
-            trip <- switch(input$yearSlider - 2005,
+            trip <- switch(input$tripYearSlider - 2005,
                            "2006" = trips[3]$c_trips_2006.RData$avg_trips,
                            "2007" = trips[4]$c_trips_2007.RData$avg_trips,
                            "2008" = trips[5]$c_trips_2008.RData$avg_trips,
