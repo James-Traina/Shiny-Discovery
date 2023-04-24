@@ -98,7 +98,8 @@ shinyUI(fluidPage(
                                   plotOutput("tripsMap")),
                           splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"),
                                   plotOutput("tripsScatter"),
-                                  plotOutput("plot"))
+                                  plotOutput("tripLinePlot")),
+                          plotOutput("tripPlot")
                           )
                         )
                         ),

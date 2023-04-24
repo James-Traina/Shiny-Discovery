@@ -1,7 +1,6 @@
 library(ggplot2)
 years <- c(2006:2018)
-averages <- c(176.166, 173.4604, 174.5831, 172.9164, 168.987, 173.2001, 167.7919,
-              163.7684, 161.7133, 155.0277, 161.4032, 160.3225, 163.4159)
+
 
 #2006 to 2018
 #2006
@@ -94,22 +93,17 @@ ggplot(data=df, aes(x=years, y=p10)) +
   ylim(140,200)+
   geom_point(color="blue", size=3)
 
-ggplot(data=Df, aes(x=Date))+
-  geom_line(aes( y = A, group =1L, color="A"))+
-  geom_line(aes( y = B, group =1L, color="B"))+
-  geom_line(aes( y = C, group =1L, color="C"))+
-  scale_color_manual(values=c("blue","red","green"))
   
 
 ggplot(df, aes(x=years)) + 
-  geom_line(aes(y = p10, color = "p10", linetype = "longdash", group = 1L)) +
-  geom_line(aes(y = p25, color = "p25", linetype = "dotted", group = 1L)) +
-  geom_line(aes(y = p50, color = "p50", linetype = "longdash", group = 1L)) +
-  geom_line(aes(y = p75, color = "p75", linetype = "dashed", group = 1L)) +
-  geom_line(aes(y = p90, color = "p90", linetype = "F1", group = 1L)) +
+  geom_line(aes(y = p10, color = "p10", group = 1L)) +
+  geom_line(aes(y = p25, color = "p25", group = 1L)) +
+  geom_line(aes(y = p50, color = "p50", group = 1L)) +
+  geom_line(aes(y = p75, color = "p75", group = 1L)) +
+  geom_line(aes(y = p90, color = "p90", group = 1L)) +
   aes(color = 1L) +
   ggtitle("Time Trends in Trips") +
-  ylab("Average Number of Trips") 
+  ylab("Average Number of Trips")
 
 # geom_line(aes(y = p25), color="lightblue", linetype="dotdash") +
 # geom_line(aes(y = p50), color="steelblue", linetype="F1") +
