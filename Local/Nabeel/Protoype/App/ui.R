@@ -151,7 +151,33 @@ shinyUI(fluidPage(
                                         label = "year:",
                                         min = 2006, max = 2018, value = 2006,
                                         step = 1, round = TRUE, ticks = TRUE),
-                            
+                            helpText("The first heatmap on this page displays the percentage of households in each 
+                                     county with broadband access in a specific year, providing important context for 
+                                     understanding the level of broadband access in each county."),
+                            helpText("The second heatmap on this page shows the average number of unique brands 
+                                     purchased per household in each county in the same year. Interestingly, 
+                                     there does not appear to be a strong relationship between broadband 
+                                     access and the number of unique brands purchased, as there are counties 
+                                     with high levels of broadband access that also have low numbers of unique 
+                                     brands purchased, and vice versa."),
+                            helpText("When viewed in the context of overall trends in shopping behavior, the 
+                                     data on the number of unique brands purchased is particularly interesting. 
+                                     From 2007 to 2018, the average number of unique brands purchased by households 
+                                     declined from just under 400 to about 350, representing a 12.5% decrease in unique 
+                                     brands. This trend is reflected in the heatmap, which shows a general decrease in 
+                                     the number of unique brands purchased across counties over time."),
+                            helpText("However, when we look at the graph on the right, which shows the set of all unique 
+                                     brands purchased by any household between 2006 and 2018, we see a different trend. Here, 
+                                     the number of overall brands purchased has steadily increased, by about 9.8%. This 
+                                     suggests that while consumers may be buying fewer unique brands, they are still buying 
+                                     more overall, indicating a possible shift in consumer preferences towards larger, more 
+                                     established brands."),
+                            helpText("Finally, the scatterplot on this page compares the percentage of households with broadband 
+                                     access to the average number of unique brands purchased per household, providing a more 
+                                     direct visual representation of the lack of relationship between these two variables. The 
+                                     scatterplot shows no clear trend or correlation between broadband access and the number of 
+                                     unique brands purchased, suggesting that other factors beyond broadband access may be more 
+                                     important in driving changes in consumer behavior over time.")
                           ),
                           mainPanel(
                             splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"),
