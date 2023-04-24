@@ -35,7 +35,64 @@ shinyServer(function(input, output) {
                                 "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
                                 "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
             
-            percent_map(broadband, "red", broadbandLegend, input$range[1], input$range[2])
+            percent_map(broadband, "blue", broadbandLegend, input$range[1], input$range[2])
+        })
+        
+        output$tripsBroadbandMap <- renderPlot({
+          broadband <- switch(input$tripYearSlider - 2005, 
+                              "2006" = broadband[broadband$year %in% c("2006"),]$broadband,
+                              "2007" = broadband[broadband$year %in% c("2007"),]$broadband,
+                              "2008" = broadband[broadband$year %in% c("2008"),]$broadband,
+                              "2009" = broadband[broadband$year %in% c("2009"),]$broadband,
+                              "2010" = broadband[broadband$year %in% c("2010"),]$broadband,
+                              "2011" = broadband[broadband$year %in% c("2011"),]$broadband,
+                              "2012" = broadband[broadband$year %in% c("2012"),]$broadband,
+                              "2013" = broadband[broadband$year %in% c("2013"),]$broadband,
+                              "2014" = broadband[broadband$year %in% c("2014"),]$broadband,
+                              "2015" = broadband[broadband$year %in% c("2015"),]$broadband,
+                              "2016" = broadband[broadband$year %in% c("2016"),]$broadband,
+                              "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
+                              "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
+          
+          percent_map(broadband, "blue", broadbandLegend)
+        })
+        
+        output$chainsBroadbandMap <- renderPlot({
+          broadband <- switch(input$chainYearSlider - 2005, 
+                              "2006" = broadband[broadband$year %in% c("2006"),]$broadband,
+                              "2007" = broadband[broadband$year %in% c("2007"),]$broadband,
+                              "2008" = broadband[broadband$year %in% c("2008"),]$broadband,
+                              "2009" = broadband[broadband$year %in% c("2009"),]$broadband,
+                              "2010" = broadband[broadband$year %in% c("2010"),]$broadband,
+                              "2011" = broadband[broadband$year %in% c("2011"),]$broadband,
+                              "2012" = broadband[broadband$year %in% c("2012"),]$broadband,
+                              "2013" = broadband[broadband$year %in% c("2013"),]$broadband,
+                              "2014" = broadband[broadband$year %in% c("2014"),]$broadband,
+                              "2015" = broadband[broadband$year %in% c("2015"),]$broadband,
+                              "2016" = broadband[broadband$year %in% c("2016"),]$broadband,
+                              "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
+                              "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
+          
+          percent_map(broadband, "blue", broadbandLegend)
+        })
+        
+        output$brandsBroadbandMap <- renderPlot({
+          broadband <- switch(input$brandsYearSlider - 2005, 
+                              "2006" = broadband[broadband$year %in% c("2006"),]$broadband,
+                              "2007" = broadband[broadband$year %in% c("2007"),]$broadband,
+                              "2008" = broadband[broadband$year %in% c("2008"),]$broadband,
+                              "2009" = broadband[broadband$year %in% c("2009"),]$broadband,
+                              "2010" = broadband[broadband$year %in% c("2010"),]$broadband,
+                              "2011" = broadband[broadband$year %in% c("2011"),]$broadband,
+                              "2012" = broadband[broadband$year %in% c("2012"),]$broadband,
+                              "2013" = broadband[broadband$year %in% c("2013"),]$broadband,
+                              "2014" = broadband[broadband$year %in% c("2014"),]$broadband,
+                              "2015" = broadband[broadband$year %in% c("2015"),]$broadband,
+                              "2016" = broadband[broadband$year %in% c("2016"),]$broadband,
+                              "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
+                              "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
+          
+          percent_map(broadband, "blue", broadbandLegend)
         })
         
         output$tripsMap <- renderPlot({
@@ -55,31 +112,11 @@ shinyServer(function(input, output) {
                            "2018" = trips[15]$c_trips_2018.RData$avg_trips,
             )
             
-            trips_map(trip, "red", tripsLegend)
+            trips_map(trip, "blue", tripsLegend)
             
         })
         
-        output$tripsBroadbandMap <- renderPlot({
-          broadband <- switch(input$tripYearSlider - 2005, 
-                              "2006" = broadband[broadband$year %in% c("2006"),]$broadband,
-                              "2007" = broadband[broadband$year %in% c("2007"),]$broadband,
-                              "2008" = broadband[broadband$year %in% c("2008"),]$broadband,
-                              "2009" = broadband[broadband$year %in% c("2009"),]$broadband,
-                              "2010" = broadband[broadband$year %in% c("2010"),]$broadband,
-                              "2011" = broadband[broadband$year %in% c("2011"),]$broadband,
-                              "2012" = broadband[broadband$year %in% c("2012"),]$broadband,
-                              "2013" = broadband[broadband$year %in% c("2013"),]$broadband,
-                              "2014" = broadband[broadband$year %in% c("2014"),]$broadband,
-                              "2015" = broadband[broadband$year %in% c("2015"),]$broadband,
-                              "2016" = broadband[broadband$year %in% c("2016"),]$broadband,
-                              "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
-                              "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
-          
-          percent_map(broadband, "red", broadbandLegend)
-        })
             
-            
-        
         output$chainsMap <- renderPlot({
             chain <- switch(input$chainYearSlider - 2005,
                             "2006" = chains[3]$c_store_2006.RData$avg_store,
@@ -97,7 +134,7 @@ shinyServer(function(input, output) {
                             "2018" = chains[15]$c_store_2018.RData$avg_store
             )
             
-            stores_map(chain, "red", chainsLegend)
+            stores_map(chain, "blue", chainsLegend)
             
         })
         
@@ -118,7 +155,7 @@ shinyServer(function(input, output) {
                             "2018" = brands[15]$c_brand_2018.RData$avg_brand,
             )
             
-            brands_map(brand, "red", brandsLegend)
+            brands_map(brand, "blue", brandsLegend)
         })
         
         output$plot <- renderPlot({
@@ -127,7 +164,7 @@ shinyServer(function(input, output) {
                           163.7684, 161.7133, 155.0277, 161.4032, 160.3225, 163.4159)
             df <-data.frame(years, averages)
             
-            ggplot(data=df, aes(x=years, y=averages, group=1)) +
+            ggplot(data=df, aes(x=years, y=averages, color=years, group=1)) +
                 geom_line()+
                 ggtitle("Average Number of Trips per Year")+
                 ylim(140,200)+
@@ -135,25 +172,91 @@ shinyServer(function(input, output) {
         })
         
         output$boxplots <- renderPlot({
-            ggplot(data = broadband, aes(x=year, y=broadband)) + 
+            ggplot(data = broadband, aes(x=year, y=broadband, color=year)) + 
                 geom_boxplot(aes(group = year))
         })
         output$tripsScatter <- renderPlot({
-          broadband08 <- broadband[broadband$year %in% c("2008"),]
-          broadbandTrips <- merge(broadband08, trips$c_trips_2008.RData, by.x = "county", by.y = "cfips")
-          ggplot(broadbandTrips, aes(x=broadband, y=avg_trips)) + geom_point()
+          
+          trip <- switch(input$tripYearSlider - 2005,
+                         "2006" = trips[3]$c_trips_2006.RData,
+                         "2007" = trips[4]$c_trips_2007.RData,
+                         "2008" = trips[5]$c_trips_2008.RData,
+                         "2009" = trips[6]$c_trips_2009.RData,
+                         "2010" = trips[7]$c_trips_2010.RData,
+                         "2011" = trips[8]$c_trips_2011.RData,
+                         "2012" = trips[9]$c_trips_2012.RData,
+                         "2013" = trips[10]$c_trips_2013.RData,
+                         "2014" = trips[11]$c_trips_2014.RData,
+                         "2015" = trips[12]$c_trips_2015.RData,
+                         "2016" = trips[13]$c_trips_2016.RData,
+                         "2017" = trips[14]$c_trips_2017.RData,
+                         "2018" = trips[15]$c_trips_2018.RData
+          )
+          
+          broadband <- switch(input$tripYearSlider - 2005, 
+                              
+                        "2006" = broadband[broadband$year %in% c("2006"),],
+                        "2007" = broadband[broadband$year %in% c("2007"),],
+                        "2008" = broadband[broadband$year %in% c("2008"),],
+                        "2009" = broadband[broadband$year %in% c("2009"),],
+                        "2010" = broadband[broadband$year %in% c("2010"),],
+                        "2011" = broadband[broadband$year %in% c("2011"),],
+                        "2012" = broadband[broadband$year %in% c("2012"),],
+                        "2013" = broadband[broadband$year %in% c("2013"),],
+                        "2014" = broadband[broadband$year %in% c("2014"),],
+                        "2015" = broadband[broadband$year %in% c("2015"),],
+                        "2016" = broadband[broadband$year %in% c("2016"),],
+                        "2017" = broadband[broadband$year %in% c("2017"),],
+                        "2018" = broadband[broadband$year %in% c("2018"),]
+                      )
+
+          broadbandTrips <- merge(broadband, trip, by.x = "county", by.y = "cfips")
+          ggplot(broadbandTrips, aes(x=broadband, y=avg_trips, color=broadband)) + geom_point()
         })
         
         output$chainsScatter <- renderPlot({
-          broadband08 <- broadband[broadband$year %in% c("2008"),]
-          broadbandChains <- merge(broadband08, chains$c_store_2008.RData, by.x = "county", by.y = "cfips")
-          ggplot(broadbandChains, aes(x=broadband, y=avg_store)) + geom_point()
+          
+          broadband <- switch(input$tripYearSlider - 2005, 
+                              
+                              "2006" = broadband[broadband$year %in% c("2006"),],
+                              "2007" = broadband[broadband$year %in% c("2007"),],
+                              "2008" = broadband[broadband$year %in% c("2008"),],
+                              "2009" = broadband[broadband$year %in% c("2009"),],
+                              "2010" = broadband[broadband$year %in% c("2010"),],
+                              "2011" = broadband[broadband$year %in% c("2011"),],
+                              "2012" = broadband[broadband$year %in% c("2012"),],
+                              "2013" = broadband[broadband$year %in% c("2013"),],
+                              "2014" = broadband[broadband$year %in% c("2014"),],
+                              "2015" = broadband[broadband$year %in% c("2015"),],
+                              "2016" = broadband[broadband$year %in% c("2016"),],
+                              "2017" = broadband[broadband$year %in% c("2017"),],
+                              "2018" = broadband[broadband$year %in% c("2018"),]
+          )
+          
+          chain <- switch(input$chainYearSlider - 2005,
+                          "2006" = chains[3]$c_store_2006.RData,
+                          "2007" = chains[4]$c_store_2007.RData,
+                          "2008" = chains[5]$c_store_2008.RData,
+                          "2009" = chains[6]$c_store_2009.RData,
+                          "2010" = chains[7]$c_store_2010.RData,
+                          "2011" = chains[8]$c_store_2011.RData,
+                          "2012" = chains[9]$c_store_2012.RData,
+                          "2013" = chains[10]$c_store_2013.RData,
+                          "2014" = chains[11]$c_store_2014.RData,
+                          "2015" = chains[12]$c_store_2015.RData,
+                          "2016" = chains[13]$c_store_2016.RData,
+                          "2017" = chains[14]$c_store_2017.RData,
+                          "2018" = chains[15]$c_store_2018.RData
+          )
+          
+          broadbandChains <- merge(broadband, chain, by.x = "county", by.y = "cfips")
+          ggplot(broadbandChains, aes(x=broadband, y=avg_store, color=broadband)) + geom_point()
         })
         
         output$brandsScatter <- renderPlot({
           broadband08 <- broadband[broadband$year %in% c("2008"),]
           broadbandBrands <- merge(broadband08, brands$c_brand_2008.RData, by.x = "county", by.y = "cfips")
-          ggplot(broadbandBrands, aes(x=broadband, y=avg_brand)) + geom_point()
+          ggplot(broadbandBrands, aes(x=broadband, y=avg_brand, color=broadband)) + geom_point()
         })
     })
 

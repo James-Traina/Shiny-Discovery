@@ -55,11 +55,10 @@ shinyUI(fluidPage(
 
                        mainPanel(
                            plotOutput("broadbandMap"),
-                           #plotOutput("plot"),,
                            plotOutput("boxplots")
                        )
                    )
-               ),
+                   ),
                tabPanel("Trip Frequency",
                         sidebarLayout(
                           sidebarPanel(
@@ -68,21 +67,34 @@ shinyUI(fluidPage(
                                         min = 2006, max = 2018, value = 2006,
                                         step = 1, round = TRUE, ticks = TRUE),
                             
-                            sliderInput("tripRange",
-                                        label = "Range of intrest:",
-                                        min = 0, max = 100, value = c(0,100)),
-                            h3("Here we can see the relationship between the number 
-                              of trips made to stores and the amount of broadband access in that county")
+                            helpText("The first heatmap on this page displays the percentage of households
+                            in each county with broadband access in a specific year. As you can see, 
+                            there is significant variation across counties in terms of broadband access. 
+                            Some counties have nearly universal access, while others have much lower rates. 
+                            This heatmap provides important context for understanding the level of broadband access 
+                            in each county."),
+                            helpText("The second heatmap on this page shows the average number of trips 
+                            taken to physical stores per person in each county in the same year. Interestingly, 
+                            there does not appear to be a strong relationship between broadband access and shopping 
+                            behavior, as there are counties with high levels of broadband access that also have 
+                            high average trip counts, and vice versa."),
+                            helpText("Finally, the scatterplot on 
+                               this page compares the percentage of households with broadband 
+                               access to the average number of trips taken to physical stores per person, 
+                               providing a more direct visual representation of the lack of relationship between these 
+                               two variables. The scatterplot shows no clear trend or correlation between broadband 
+                               access and physical store visits, suggesting that other factors beyond broadband access 
+                               may be influencing shopping behavior.")
                         ),
                         
         
                         
                         mainPanel(splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"),
-                          plotOutput("tripsMap"),
-                                  plotOutput("tripsBroadbandMap")),
+                          plotOutput("tripsBroadbandMap"),
+                                  plotOutput("tripsMap")),
                           splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"),
-                                  plotOutput("plot"),
-                                  plotOutput("tripsScatter"))
+                                  plotOutput("tripsScatter"),
+                                  plotOutput("plot"))
                           )
                         )
                         ),
@@ -93,14 +105,13 @@ shinyUI(fluidPage(
                             sliderInput("chainYearSlider",
                                         label = "year:",
                                         min = 2006, max = 2018, value = 2006,
-                                        step = 1, round = TRUE, ticks = TRUE),
+                                        step = 1, round = TRUE, ticks = TRUE)),
                             
-                            sliderInput("chainRange",
-                                        label = "Range of intrest:",
-                                        min = 0, max = 100, value = c(0,100))
-                          ),
-                          mainPanel(plotOutput("chainsMap"),
-                                    plotOutput("chainsScatter")
+                          mainPanel(splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"),
+                            plotOutput("chainsBroadbandMap"),
+                                    plotOutput("chainsMap")),
+                            splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"),
+                                        plotOutput("chainsScatter"))
                           )
                         )
                         ),
@@ -112,18 +123,24 @@ shinyUI(fluidPage(
                                         min = 2006, max = 2018, value = 2006,
                                         step = 1, round = TRUE, ticks = TRUE),
                             
-                            sliderInput("brandsRange",
-                                        label = "Range of intrest:",
-                                        min = 0, max = 100, value = c(0,100))
                           ),
                           mainPanel(
-                            splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"), 
-                             plotOutput("brandsMap"),
-                              plotOutput("brandsScatter")
+                            splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"),
+                            plotOutput("brandsBroadbandMap"),
+                             plotOutput("brandsMap")),
+                            splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"),
+                              plotOutput("brandsScatter"))
                           )
                         ))
                )
-    )
+)
+)
 
-))
+
+
+
+
+
+
+
 

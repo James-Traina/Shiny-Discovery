@@ -16,7 +16,7 @@ stores_map <- function(var, color, legend.title) {
   var = round(var, 0)
   
   # generate vector of fill colors for map
-  shades <- colorRampPalette(c("white", color))(5)
+  colors <- colorRampPalette(c("white", "blue"))(5)
   
   p1 <- quantile(all_stores, .20)
   p2 <- quantile(all_stores, .40)
@@ -59,7 +59,7 @@ stores_map <- function(var, color, legend.title) {
   
   legend("bottomleft",
          legend = legend.text,
-         fill = shades[c(1, 2, 3, 4, 5)],
+         fill = colors[c(1, 2, 3, 4, 5)],
          title = legend.title)
 }
 

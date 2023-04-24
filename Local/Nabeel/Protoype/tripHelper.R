@@ -18,11 +18,9 @@ for (i in trips) {
 }
 trips_map <- function(var, color, legend.title) {
   var = round(var, 0)
-  print(var)
-  print("printing var")
   
   # generate vector of fill colors for map
-  shades <- colorRampPalette(c("white", color))(5)
+  colors <- colorRampPalette(c("white", "blue"))(5)
   
   p1 <- quantile(all_trips, .20)
   p2 <- quantile(all_trips, .40)
@@ -63,8 +61,8 @@ trips_map <- function(var, color, legend.title) {
                    paste0(round(p3, 0), " - ", round(p4, 0), " trips (80th Percentile)"),
                    paste0(round(p4, 0), " or more trips"))
   
-  legend("bottomleft",
+  legend("bottomleft", inset = c(0, -0.1),
          legend = legend.text,
-         fill = shades[c(1, 2, 3, 4, 5)],
+         fill = colors[c(1, 2, 3, 4, 5)],
          title = legend.title)
 }
