@@ -14,9 +14,9 @@ library(ggplot2)
 shinyServer(function(input, output) {
     
     broadbandLegend <- paste0("% of county with broadband in ", 2010)
-    tripsLegend <- paste0("Avg number of Trips per County", 2010)
-    chainsLegend <- paste0("Avg number of Chains Visited per County", 2010)
-    brandsLegend <- paste0("Avg number of Brands Purchased per County", 2010)
+    tripsLegend <- paste0("Avg number of Trips per County ", 2010)
+    chainsLegend <- paste0("Avg number of Chains Visited per County ", 2010)
+    brandsLegend <- paste0("Avg number of Brands Purchased per County ", 2010)
     
 
         output$broadbandMap <- renderPlot({

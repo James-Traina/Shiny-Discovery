@@ -73,18 +73,22 @@ shinyUI(fluidPage(
                             Some counties have nearly universal access, while others have much lower rates. 
                             This heatmap provides important context for understanding the level of broadband access 
                             in each county."),
-                            helpText("The second heatmap on this page shows the average number of trips 
-                            taken to physical stores per person in each county in the same year. Interestingly, 
-                            there does not appear to be a strong relationship between broadband access and shopping 
-                            behavior, as there are counties with high levels of broadband access that also have 
-                            high average trip counts, and vice versa."),
-                            helpText("Finally, the scatterplot on 
-                               this page compares the percentage of households with broadband 
-                               access to the average number of trips taken to physical stores per person, 
-                               providing a more direct visual representation of the lack of relationship between these 
-                               two variables. The scatterplot shows no clear trend or correlation between broadband 
-                               access and physical store visits, suggesting that other factors beyond broadband access 
-                               may be influencing shopping behavior.")
+                            helpText("The second heatmap on this page shows the average number of trips taken to physical 
+                            stores per person in each county in a specific year. This data is particularly interesting when 
+                            viewed in the context of overall trends in shopping behavior. The average number of trips to 
+                            brick-and-mortar retailers has been steadily declining over time, as consumers increasingly rely on 
+                            online shopping and delivery services. From 2006 to 2018, the average number of trips taken 
+                                     to brick-and-mortar retailers decreased from almost 180 times per year to just over 
+                                     166 times per year. This represents a decline of about 3.5 trips per week to just over 
+                                     3 trips per week. This trend is reflected in the heatmap, which shows a general decrease 
+                                     in average trip counts across counties over time."),
+                            helpText("Interestingly, there does not appear to be a strong relationship between 
+                                     broadband access and shopping behavior, as there are counties with high levels 
+                                     of broadband access that also have high average trip counts, and vice versa. 
+                                     The scatterplot on this page further reinforces this lack of correlation 
+                                     between broadband access and physical store visits. These findings suggest that 
+                                     other factors beyond broadband access may be more important in driving changes 
+                                     in shopping behavior over time.")
                         ),
                         
         
@@ -105,7 +109,32 @@ shinyUI(fluidPage(
                             sliderInput("chainYearSlider",
                                         label = "year:",
                                         min = 2006, max = 2018, value = 2006,
-                                        step = 1, round = TRUE, ticks = TRUE)),
+                                        step = 1, round = TRUE, ticks = TRUE),
+                            helpText("The first heatmap on this page displays the percentage of households in each 
+                                     county with broadband access in a specific year, providing important context for 
+                                     understanding the level of broadband access in each county."),
+                            helpText("The second heatmap on this page shows the average number of unique retail 
+                                     chains visited per household in each county in the same year. Interestingly, 
+                                     there does not appear to be a strong relationship between broadband access 
+                                     and the number of unique retail chains visited, as there are counties with 
+                                     high levels of broadband access that also have low numbers of unique retail 
+                                     chains visited, and vice versa."),
+                            helpText("When viewed in the context of overall trends in shopping behavior, the 
+                                     data on the number of unique retail chains visited is particularly 
+                                     interesting. From 2006 to 2018, the average number of unique retail 
+                                     chains visited by households declined from almost 24 to just over 21. 
+                                     This represents an 8% decrease over 12 years. This trend is reflected 
+                                     in the heatmap, which shows a general decrease in the number of unique 
+                                     retail chains visited across counties over time."),
+                            helpText("Finally, the scatterplot on this page compares the percentage of 
+                                      households with broadband access to the average number of unique retail 
+                                      chains visited per household, providing a more direct visual representation 
+                                      of the lack of relationship between these two variables. The scatterplot 
+                                      shows no clear trend or correlation between broadband access and the number 
+                                      of unique retail chains visited, suggesting that other factors beyond broadband 
+                                      access may be more important in driving changes in consumer behavior over time.")
+ 
+                            ),
                             
                           mainPanel(splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"),
                             plotOutput("chainsBroadbandMap"),
