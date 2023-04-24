@@ -24,7 +24,7 @@ stores_map <- function(var, color, legend.title) {
   p4 <- quantile(all_stores, .80)
   
   fills <- c()
-  for (store in all_stores) {
+  for (store in var) {
     if (store < p1) {
       fills = append(fills, colors[1]) 
     } else if (p1 <= store & store < p2) {

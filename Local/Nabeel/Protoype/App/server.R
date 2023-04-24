@@ -55,7 +55,7 @@ shinyServer(function(input, output) {
         })
         
         output$chainsMap <- renderPlot({
-            chain <- switch(input$yearSlider - 2005,
+            chain <- switch(input$chainYearSlider - 2005,
                             "2006" = chains[3]$c_store_2006.RData$avg_store,
                             "2007" = chains[4]$c_store_2007.RData$avg_store,
                             "2008" = chains[5]$c_store_2008.RData$avg_store,
