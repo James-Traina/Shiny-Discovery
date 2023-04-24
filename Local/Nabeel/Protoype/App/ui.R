@@ -74,9 +74,15 @@ shinyUI(fluidPage(
                             h3("Here we can see the relationship between the number 
                               of trips made to stores and the amount of broadband access in that county")
                         ),
-                        mainPanel(plotOutput("tripsMap"),
+                        
+        
+                        
+                        mainPanel(splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"),
+                          plotOutput("tripsMap"),
+                                  plotOutput("tripsBroadbandMap")),
+                          splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"),
                                   plotOutput("plot"),
-                                  plotOutput("tripsScatter")
+                                  plotOutput("tripsScatter"))
                           )
                         )
                         ),
@@ -110,10 +116,13 @@ shinyUI(fluidPage(
                                         label = "Range of intrest:",
                                         min = 0, max = 100, value = c(0,100))
                           ),
-                          mainPanel(plotOutput("brandsMap"),
-                                    plotOutput("brandsScatter")
+                          mainPanel(
+                            splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"), 
+                             plotOutput("brandsMap"),
+                              plotOutput("brandsScatter")
                           )
                         ))
+               )
     )
 
 ))

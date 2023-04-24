@@ -25,7 +25,7 @@ brands_map <- function(var, color, legend.title) {
   p4 <- quantile(all_brands, .80)
   
   fills <- c()
-  for (b in all_brands) {
+  for (b in var) {
     if (b < p1) {
       fills = append(fills, colors[1]) 
     } else if (p1 <= b & b < p2) {

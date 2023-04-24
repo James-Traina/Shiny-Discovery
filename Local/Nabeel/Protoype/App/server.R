@@ -13,7 +13,11 @@ library(ggplot2)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
     
-    legend <- paste0("% of county with broadband in ", 2010)
+    broadbandLegend <- paste0("% of county with broadband in ", 2010)
+    tripsLegend <- paste0("Avg number of Trips per County", 2010)
+    chainsLegend <- paste0("Avg number of Chains Visited per County", 2010)
+    brandsLegend <- paste0("Avg number of Brands Purchased per County", 2010)
+    
 
         output$broadbandMap <- renderPlot({
             broadband <- switch(input$yearSlider - 2005, 
@@ -31,7 +35,7 @@ shinyServer(function(input, output) {
                                 "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
                                 "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
             
-            percent_map(broadband, "red", legend, input$range[1], input$range[2])
+            percent_map(broadband, "red", broadbandLegend, input$range[1], input$range[2])
         })
         
         output$tripsMap <- renderPlot({
@@ -51,8 +55,30 @@ shinyServer(function(input, output) {
                            "2018" = trips[15]$c_trips_2018.RData$avg_trips,
             )
             
-            trips_map(trip, "red", legend)
+            trips_map(trip, "red", tripsLegend)
+            
         })
+        
+        output$tripsBroadbandMap <- renderPlot({
+          broadband <- switch(input$tripYearSlider - 2005, 
+                              "2006" = broadband[broadband$year %in% c("2006"),]$broadband,
+                              "2007" = broadband[broadband$year %in% c("2007"),]$broadband,
+                              "2008" = broadband[broadband$year %in% c("2008"),]$broadband,
+                              "2009" = broadband[broadband$year %in% c("2009"),]$broadband,
+                              "2010" = broadband[broadband$year %in% c("2010"),]$broadband,
+                              "2011" = broadband[broadband$year %in% c("2011"),]$broadband,
+                              "2012" = broadband[broadband$year %in% c("2012"),]$broadband,
+                              "2013" = broadband[broadband$year %in% c("2013"),]$broadband,
+                              "2014" = broadband[broadband$year %in% c("2014"),]$broadband,
+                              "2015" = broadband[broadband$year %in% c("2015"),]$broadband,
+                              "2016" = broadband[broadband$year %in% c("2016"),]$broadband,
+                              "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
+                              "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
+          
+          percent_map(broadband, "red", broadbandLegend)
+        })
+            
+            
         
         output$chainsMap <- renderPlot({
             chain <- switch(input$chainYearSlider - 2005,
@@ -71,11 +97,12 @@ shinyServer(function(input, output) {
                             "2018" = chains[15]$c_store_2018.RData$avg_store
             )
             
-            stores_map(chain, "red", legend)
+            stores_map(chain, "red", chainsLegend)
+            
         })
         
         output$brandsMap <- renderPlot({
-            brand <- switch(input$yearSlider - 2005,
+            brand <- switch(input$brandsYearSlider - 2005,
                             "2006" = brands[3]$c_brand_2006.RData$avg_brand,
                             "2007" = brands[4]$c_brand_2007.RData$avg_brand,
                             "2008" = brands[5]$c_brand_2008.RData$avg_brand,
@@ -91,7 +118,7 @@ shinyServer(function(input, output) {
                             "2018" = brands[15]$c_brand_2018.RData$avg_brand,
             )
             
-            brands_map(brand, "red", legend)
+            brands_map(brand, "red", brandsLegend)
         })
         
         output$plot <- renderPlot({
