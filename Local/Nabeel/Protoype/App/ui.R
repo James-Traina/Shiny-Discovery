@@ -141,7 +141,8 @@ shinyUI(fluidPage(
                             plotOutput("chainsBroadbandMap"),
                                     plotOutput("chainsMap")),
                             splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"),
-                                        plotOutput("chainsScatter"))
+                                        plotOutput("chainsScatter"),
+                                        plotOutput("chainLinePlot"))
                           )
                         )
                         ),
@@ -185,7 +186,9 @@ shinyUI(fluidPage(
                             plotOutput("brandsBroadbandMap"),
                              plotOutput("brandsMap")),
                             splitLayout(style = "border: 1px solid silver:", cellWidths = c("50%", "50%"),
-                              plotOutput("brandsScatter"))
+                              plotOutput("brandsScatter"),
+                              plotOutput("brandLinePlot")
+                              )
                           )
                         ))
                )
