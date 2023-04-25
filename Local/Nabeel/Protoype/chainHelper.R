@@ -51,11 +51,11 @@ stores_map <- function(var, color, legend.title) {
       myborder = 0, mar = c(0,0,0,0))
   
   # add a legend
-  legend.text <- c(paste0(round(p1, 0), " or less trips (20th Percentile)"),
-                   paste0(round(p1, 0), " - ", round(p2, 0), " trips (40th Percentile)" ),
-                   paste0(round(p2, 0), " - ", round(p3, 0), " trips (60th Percentile)"),
-                   paste0(round(p3, 0), " - ", round(p4, 0), " trips (80th Percentile)"),
-                   paste0(round(p4, 0), " or more trips"))
+  legend.text <- c(paste0(round(p1, 0), " or less chains visited (20th Percentile)"),
+                   paste0(round(p1, 0), " - ", round(p2, 0), " chains visited (40th Percentile)" ),
+                   paste0(round(p2, 0), " - ", round(p3, 0), " chains visited (60th Percentile)"),
+                   paste0(round(p3, 0), " - ", round(p4, 0), " chains visited (80th Percentile)"),
+                   paste0(round(p4, 0), " or more chains visited"))
   
   legend("bottomleft",
          legend = legend.text,
