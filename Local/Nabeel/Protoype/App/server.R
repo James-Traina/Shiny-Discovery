@@ -13,10 +13,6 @@ library(ggplot2)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
     
-    broadbandLegend <- paste0("% of county with broadband in ", 2010)
-    tripsLegend <- paste0("Avg number of Trips per County ", 2010)
-    chainsLegend <- paste0("Avg number of Chains Visited per County ", 2010)
-    brandsLegend <- paste0("Avg number of Brands Purchased per County ", 2010)
     
 
         output$broadbandMap <- renderPlot({
@@ -34,8 +30,8 @@ shinyServer(function(input, output) {
                                 "2016" = broadband[broadband$year %in% c("2016"),]$broadband,
                                 "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
                                 "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
-            
-            percent_map(broadband, "blue", broadbandLegend, input$range[1], input$range[2])
+            broadbandLegend <- paste0("% of county with broadband in ", input$yearSlider)
+            percent_map(broadband, "blue", broadbandLegend)
         })
         
         output$tripsBroadbandMap <- renderPlot({
@@ -53,7 +49,7 @@ shinyServer(function(input, output) {
                               "2016" = broadband[broadband$year %in% c("2016"),]$broadband,
                               "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
                               "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
-          
+          broadbandLegend <- paste0("% of county with broadband in ", input$tripYearSlider)
           percent_map(broadband, "blue", broadbandLegend)
         })
         
@@ -72,7 +68,7 @@ shinyServer(function(input, output) {
                               "2016" = broadband[broadband$year %in% c("2016"),]$broadband,
                               "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
                               "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
-          
+          broadbandLegend <- paste0("% of county with broadband in ", input$chainYearSlider)
           percent_map(broadband, "blue", broadbandLegend)
         })
         
@@ -91,7 +87,7 @@ shinyServer(function(input, output) {
                               "2016" = broadband[broadband$year %in% c("2016"),]$broadband,
                               "2017" = broadband[broadband$year %in% c("2017"),]$broadband,
                               "2018" = broadband[broadband$year %in% c("2018"),]$broadband)
-          
+          broadbandLegend <- paste0("% of county with broadband in ", input$brandsYearSlider)
           percent_map(broadband, "blue", broadbandLegend)
         })
         
@@ -111,7 +107,7 @@ shinyServer(function(input, output) {
                            "2017" = trips[14]$c_trips_2017.RData$avg_trips,
                            "2018" = trips[15]$c_trips_2018.RData$avg_trips,
             )
-            
+            tripsLegend <- paste0("Avg number of Trips per County ", input$tripYearSlider)
             trips_map(trip, "blue", tripsLegend)
             
         })
@@ -133,7 +129,7 @@ shinyServer(function(input, output) {
                             "2017" = chains[14]$c_store_2017.RData$avg_store,
                             "2018" = chains[15]$c_store_2018.RData$avg_store
             )
-            
+            chainsLegend <- paste0("Avg number of Chains Visited per County ", input$chainYearSlider)
             stores_map(chain, "blue", chainsLegend)
             
         })
@@ -154,7 +150,7 @@ shinyServer(function(input, output) {
                             "2017" = brands[14]$c_brand_2017.RData$avg_brand,
                             "2018" = brands[15]$c_brand_2018.RData$avg_brand,
             )
-            
+            brandsLegend <- paste0("Avg number of Brands Purchased per County ", input$brandsYearSlider)
             brands_map(brand, "blue", brandsLegend)
         })
       
@@ -281,7 +277,8 @@ shinyServer(function(input, output) {
         
         output$boxplots <- renderPlot({
             ggplot(data = broadband, aes(x=year, y=broadband, color=year, fill=year)) + 
-                geom_boxplot(aes(group = year))
+                geom_boxplot(aes(group = year)) + ggtitle("Broadband Over The Years") +
+            xlab("Years") + ylab("Broadband")
         })
         output$tripsScatter <- renderPlot({
           
@@ -319,8 +316,11 @@ shinyServer(function(input, output) {
                       )
 
           broadbandTrips <- merge(broadband, trip, by.x = "county", by.y = "cfips")
-          ggplot(broadbandTrips, aes(x=broadband, y=avg_trips, color=broadband)) + geom_point()
+          ggplot(broadbandTrips, aes(x=broadband, y=avg_trips, color=broadband)) + geom_point() +
+            ggtitle("Broadband vs. Unique Brands Purchased") + ylab("Brands") + xlab("Broadband")
         })
+        
+        
         
         output$chainsScatter <- renderPlot({
           
@@ -358,8 +358,51 @@ shinyServer(function(input, output) {
           )
           
           broadbandChains <- merge(broadband, chain, by.x = "county", by.y = "cfips")
-          ggplot(broadbandChains, aes(x=broadband, y=avg_store, color=broadband)) + geom_point()
+          ggplot(broadbandChains, aes(x=broadband, y=avg_store, color=broadband)) + geom_point() +
+            ggtitle("Broadband vs. Unique Chains Visited") + xlab("Broadband") + ylab("Chains")
         })
+        
+        output$brandsScatter <- renderPlot({
+          
+          broadband <- switch(input$tripYearSlider - 2005, 
+                              
+                              "2006" = broadband[broadband$year %in% c("2006"),],
+                              "2007" = broadband[broadband$year %in% c("2007"),],
+                              "2008" = broadband[broadband$year %in% c("2008"),],
+                              "2009" = broadband[broadband$year %in% c("2009"),],
+                              "2010" = broadband[broadband$year %in% c("2010"),],
+                              "2011" = broadband[broadband$year %in% c("2011"),],
+                              "2012" = broadband[broadband$year %in% c("2012"),],
+                              "2013" = broadband[broadband$year %in% c("2013"),],
+                              "2014" = broadband[broadband$year %in% c("2014"),],
+                              "2015" = broadband[broadband$year %in% c("2015"),],
+                              "2016" = broadband[broadband$year %in% c("2016"),],
+                              "2017" = broadband[broadband$year %in% c("2017"),],
+                              "2018" = broadband[broadband$year %in% c("2018"),]
+          )
+          
+          brand <- switch(input$brandsYearSlider - 2005,
+                          "2006" = brands[3]$c_brand_2006.RData,
+                          "2007" = brands[4]$c_brand_2007.RData,
+                          "2008" = brands[5]$c_brand_2008.RData,
+                          "2009" = brands[6]$c_brand_2009.RData,
+                          "2010" = brands[7]$c_brand_2010.RData,
+                          "2011" = brands[8]$c_brand_2011.RData,
+                          "2012" = brands[9]$c_brand_2012.RData,
+                          "2013" = brands[10]$c_brand_2013.RData,
+                          "2014" = brands[11]$c_brand_2014.RData,
+                          "2015" = brands[12]$c_brand_2015.RData,
+                          "2016" = brands[13]$c_brand_2016.RData,
+                          "2017" = brands[14]$c_brand_2017.RData,
+                          "2018" = brands[15]$c_brand_2018.RData,
+          )
+          
+          broadbandBrand <- merge(broadband, brand, by.x = "county", by.y = "cfips")
+          ggplot(broadbandBrand, aes(x=broadband, y=avg_brand, color=broadband)) + geom_point() +
+            ggtitle("Broadband vs. Unique Brands Purchased") + ylab("Brands") + xlab("Broadband")
+        })
+        
+        
         
         output$chainLinePlot <- renderPlot({
           
@@ -393,7 +436,7 @@ shinyServer(function(input, output) {
                           "2015" = brands[12]$c_brand_2015.RData,
                           "2016" = brands[13]$c_brand_2016.RData,
                           "2017" = brands[14]$c_brand_2017.RData,
-                          "2018" = brands[15]$c_brand_2018.RData,
+                          "2018" = brands[15]$c_brand_2018.RData, 
           )
           
           broadbandBrands <- merge(broadband, brand, by.x = "county", by.y = "cfips")
@@ -490,89 +533,89 @@ shinyServer(function(input, output) {
             geom_line(aes(y = p75, color = "p75", group = 1L)) +
             geom_line(aes(y = p90, color = "p90", group = 1L)) +
             aes(color = 1L) +
-            ggtitle("Time Trends in Trips") +
-            ylab("Average Number of Trips")
+            ggtitle("Time Trends in Unique Chains Visited") +
+            ylab(" Number of Unique Chains Visited")
         })
         
         output$brandLinePlot <- renderPlot({
           
           p2006 <- quantile(brands$c_brand_2006.RData$avg_brand, .10)
-          p2007 <- quantile(brands$c_brand_2006.RData$avg_brand, .10)
-          p2008 <- quantile(brands$c_brand_2006.RData$avg_brand, .10)
-          p2009 <- quantile(brands$c_brand_2006.RData$avg_brand, .10)
-          p2010 <- quantile(brands$c_brand_2006.RData$avg_brand, .10)
-          p2011 <- quantile(brands$c_brand_2006.RData$avg_brand, .10)
-          p2012 <- quantile(brands$c_brand_2006.RData$avg_brand, .10)
-          p2013 <- quantile(brands$c_brand_2006.RData$avg_brand, .10)
-          p2014 <- quantile(brands$c_brand_2006.RData$avg_brand, .10)
-          p2015 <- quantile(brands$c_brand_2006.RData$avg_brand, .10)
-          p2016 <- quantile(brands$c_brand_2006.RData$avg_brand, .10)
-          p2017 <- quantile(brands$c_brand_2006.RData$avg_brand, .10)
-          p2018 <- quantile(brands$c_brand_2006.RData$avg_brand, .10)
+          p2007 <- quantile(brands$c_brand_2007.RData$avg_brand, .10)
+          p2008 <- quantile(brands$c_brand_2008.RData$avg_brand, .10)
+          p2009 <- quantile(brands$c_brand_2009.RData$avg_brand, .10)
+          p2010 <- quantile(brands$c_brand_2010.RData$avg_brand, .10)
+          p2011 <- quantile(brands$c_brand_2011.RData$avg_brand, .10)
+          p2012 <- quantile(brands$c_brand_2012.RData$avg_brand, .10)
+          p2013 <- quantile(brands$c_brand_2013.RData$avg_brand, .10)
+          p2014 <- quantile(brands$c_brand_2014.RData$avg_brand, .10)
+          p2015 <- quantile(brands$c_brand_2015.RData$avg_brand, .10)
+          p2016 <- quantile(brands$c_brand_2016.RData$avg_brand, .10)
+          p2017 <- quantile(brands$c_brand_2017.RData$avg_brand, .10)
+          p2018 <- quantile(brands$c_brand_2018.RData$avg_brand, .10)
           p10 <- c(p2006, p2007, p2008, p2009, p2010, p2011, p2012, p2013,
                    p2014, p2015, p2016, p2017, p2018)
           
           p2006 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
-          p2007 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
-          p2008 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
-          p2009 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
-          p2010 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
-          p2011 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
-          p2012 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
-          p2013 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
-          p2014 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
-          p2015 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
-          p2016 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
-          p2017 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
-          p2018 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
+          p2007 <- quantile(brands$c_brand_2007.RData$avg_brand, .25)
+          p2008 <- quantile(brands$c_brand_2008.RData$avg_brand, .25)
+          p2009 <- quantile(brands$c_brand_2009.RData$avg_brand, .25)
+          p2010 <- quantile(brands$c_brand_2010.RData$avg_brand, .25)
+          p2011 <- quantile(brands$c_brand_2011.RData$avg_brand, .25)
+          p2012 <- quantile(brands$c_brand_2012.RData$avg_brand, .25)
+          p2013 <- quantile(brands$c_brand_2013.RData$avg_brand, .25)
+          p2014 <- quantile(brands$c_brand_2014.RData$avg_brand, .25)
+          p2015 <- quantile(brands$c_brand_2015.RData$avg_brand, .25)
+          p2016 <- quantile(brands$c_brand_2016.RData$avg_brand, .25)
+          p2017 <- quantile(brands$c_brand_2017.RData$avg_brand, .25)
+          p2018 <- quantile(brands$c_brand_2018.RData$avg_brand, .25)
           p25 <- c(p2006, p2007, p2008, p2009, p2010, p2011, p2012, p2013,
                    p2014, p2015, p2016, p2017, p2018)
           
           p2006 <- quantile(brands$c_brand_2006.RData$avg_brand, .50)
-          p2007 <- quantile(brands$c_brand_2006.RData$avg_brand, .50)
-          p2008 <- quantile(brands$c_brand_2006.RData$avg_brand, .50)
-          p2009 <- quantile(brands$c_brand_2006.RData$avg_brand, .50)
-          p2010 <- quantile(brands$c_brand_2006.RData$avg_brand, .50)
-          p2011 <- quantile(brands$c_brand_2006.RData$avg_brand, .50)
-          p2012 <- quantile(brands$c_brand_2006.RData$avg_brand, .50)
-          p2013 <- quantile(brands$c_brand_2006.RData$avg_brand, .50)
-          p2014 <- quantile(brands$c_brand_2006.RData$avg_brand, .50)
-          p2015 <- quantile(brands$c_brand_2006.RData$avg_brand, .50)
-          p2016 <- quantile(brands$c_brand_2006.RData$avg_brand, .50)
-          p2017 <- quantile(brands$c_brand_2006.RData$avg_brand, .50)
-          p2018 <- quantile(brands$c_brand_2006.RData$avg_brand, .50)
+          p2007 <- quantile(brands$c_brand_2007.RData$avg_brand, .50)
+          p2008 <- quantile(brands$c_brand_2008.RData$avg_brand, .50)
+          p2009 <- quantile(brands$c_brand_2009.RData$avg_brand, .50)
+          p2010 <- quantile(brands$c_brand_2010.RData$avg_brand, .50)
+          p2011 <- quantile(brands$c_brand_2011.RData$avg_brand, .50)
+          p2012 <- quantile(brands$c_brand_2012.RData$avg_brand, .50)
+          p2013 <- quantile(brands$c_brand_2013.RData$avg_brand, .50)
+          p2014 <- quantile(brands$c_brand_2014.RData$avg_brand, .50)
+          p2015 <- quantile(brands$c_brand_2015.RData$avg_brand, .50)
+          p2016 <- quantile(brands$c_brand_2016.RData$avg_brand, .50)
+          p2017 <- quantile(brands$c_brand_2017.RData$avg_brand, .50)
+          p2018 <- quantile(brands$c_brand_2018.RData$avg_brand, .50)
           p50 <- c(p2006, p2007, p2008, p2009, p2010, p2011, p2012, p2013,
                    p2014, p2015, p2016, p2017, p2018)
           
           p2006 <- quantile(brands$c_brand_2006.RData$avg_brand, .75)
-          p2007 <- quantile(brands$c_brand_2006.RData$avg_brand, .75)
-          p2008 <- quantile(brands$c_brand_2006.RData$avg_brand, .25)
-          p2009 <- quantile(brands$c_brand_2006.RData$avg_brand, .75)
-          p2010 <- quantile(brands$c_brand_2006.RData$avg_brand, .75)
-          p2011 <- quantile(brands$c_brand_2006.RData$avg_brand, .75)
-          p2012 <- quantile(brands$c_brand_2006.RData$avg_brand, .75)
-          p2013 <- quantile(brands$c_brand_2006.RData$avg_brand, .75)
-          p2014 <- quantile(brands$c_brand_2006.RData$avg_brand, .75)
-          p2015 <- quantile(brands$c_brand_2006.RData$avg_brand, .75)
-          p2016 <- quantile(brands$c_brand_2006.RData$avg_brand, .75)
-          p2017 <- quantile(brands$c_brand_2006.RData$avg_brand, .75)
-          p2018 <- quantile(brands$c_brand_2006.RData$avg_brand, .75)
+          p2007 <- quantile(brands$c_brand_2007.RData$avg_brand, .75)
+          p2008 <- quantile(brands$c_brand_2008.RData$avg_brand, .75)
+          p2009 <- quantile(brands$c_brand_2009.RData$avg_brand, .75)
+          p2010 <- quantile(brands$c_brand_2010.RData$avg_brand, .75)
+          p2011 <- quantile(brands$c_brand_2011.RData$avg_brand, .75)
+          p2012 <- quantile(brands$c_brand_2012.RData$avg_brand, .75)
+          p2013 <- quantile(brands$c_brand_2013.RData$avg_brand, .75)
+          p2014 <- quantile(brands$c_brand_2014.RData$avg_brand, .75)
+          p2015 <- quantile(brands$c_brand_2015.RData$avg_brand, .75)
+          p2016 <- quantile(brands$c_brand_2016.RData$avg_brand, .75)
+          p2017 <- quantile(brands$c_brand_2017.RData$avg_brand, .75)
+          p2018 <- quantile(brands$c_brand_2018.RData$avg_brand, .75)
           p75 <- c(p2006, p2007, p2008, p2009, p2010, p2011, p2012, p2013,
                    p2014, p2015, p2016, p2017, p2018)
           
           p2006 <- quantile(brands$c_brand_2006.RData$avg_brand, .90)
-          p2007 <- quantile(brands$c_brand_2006.RData$avg_brand, .90)
-          p2008 <- quantile(brands$c_brand_2006.RData$avg_brand, .90)
-          p2009 <- quantile(brands$c_brand_2006.RData$avg_brand, .90)
-          p2010 <- quantile(brands$c_brand_2006.RData$avg_brand, .90)
-          p2011 <- quantile(brands$c_brand_2006.RData$avg_brand, .90)
-          p2012 <- quantile(brands$c_brand_2006.RData$avg_brand, .90)
-          p2013 <- quantile(brands$c_brand_2006.RData$avg_brand, .90)
-          p2014 <- quantile(brands$c_brand_2006.RData$avg_brand, .90)
-          p2015 <- quantile(brands$c_brand_2006.RData$avg_brand, .90)
-          p2016 <- quantile(brands$c_brand_2006.RData$avg_brand, .90)
-          p2017 <- quantile(brands$c_brand_2006.RData$avg_brand, .90)
-          p2018 <- quantile(brands$c_brand_2006.RData$avg_brand, .90)
+          p2007 <- quantile(brands$c_brand_2007.RData$avg_brand, .90)
+          p2008 <- quantile(brands$c_brand_2008.RData$avg_brand, .90)
+          p2009 <- quantile(brands$c_brand_2009.RData$avg_brand, .90)
+          p2010 <- quantile(brands$c_brand_2010.RData$avg_brand, .90)
+          p2011 <- quantile(brands$c_brand_2011.RData$avg_brand, .90)
+          p2012 <- quantile(brands$c_brand_2012.RData$avg_brand, .90)
+          p2013 <- quantile(brands$c_brand_2013.RData$avg_brand, .90)
+          p2014 <- quantile(brands$c_brand_2014.RData$avg_brand, .90)
+          p2015 <- quantile(brands$c_brand_2015.RData$avg_brand, .90)
+          p2016 <- quantile(brands$c_brand_2016.RData$avg_brand, .90)
+          p2017 <- quantile(brands$c_brand_2017.RData$avg_brand, .90)
+          p2018 <- quantile(brands$c_brand_2018.RData$avg_brand, .90)
           p90 <- c(p2006, p2007, p2008, p2009, p2010, p2011, p2012, p2013,
                    p2014, p2015, p2016, p2017, p2018)
           
@@ -585,8 +628,8 @@ shinyServer(function(input, output) {
             geom_line(aes(y = p75, color = "p75", group = 1L)) +
             geom_line(aes(y = p90, color = "p90", group = 1L)) +
             aes(color = 1L) +
-            ggtitle("Time Trends in Trips") +
-            ylab("Average Number of Trips")
+            ggtitle("Time Trends in Unique Brands Purchased") +
+            ylab(" Number of Brands Purchased")
           
         })
         

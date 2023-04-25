@@ -1,7 +1,9 @@
 # Note: percent map is designed to work with the counties data set
 # It may not work correctly with other data sets if their row order does 
 # not exactly match the order in which the maps package plots counties
-percent_map <- function(var, color, legend.title, min = 0, max = 100) {
+percent_map <- function(var, color, legend.title) {
+  min = 0
+  max = 100
   
   # generate vector of fill colors for map
   shades <- colorRampPalette(c("white", color))(100)

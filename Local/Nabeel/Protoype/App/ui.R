@@ -36,21 +36,33 @@ shinyUI(fluidPage(
                    "Broadband",
                    sidebarLayout(
                        sidebarPanel(
-                           helpText("Visualize broadband by county"),
-
-                           selectInput("displayVar", label = "Choose a Variable to Display",
-                                       choices = c("Broadband", "Avg Trips", "Avg Unique Chains Visited",
-                                                   "Avg Unique Brands Purchased"), selected = "Broadband"),
-
                            sliderInput("yearSlider",
                                        label = "year:",
                                        min = 2006, max = 2018, value = 2006,
                                        step = 1, round = TRUE, ticks = TRUE),
 
-                           sliderInput("range",
-                                       label = "Range of intrest:",
-                                       min = 0, max = 100, value = c(0,100)),
-                           p("blah blah more text here")
+                           helpText("Welcome to our website exploring the relationship between 
+                                    broadband access and consumer behavior in the retail industry. 
+                                    On this page, you'll find a series of interactive visualizations 
+                                    that allow you to explore the distribution of broadband access 
+                                    across counties and how it has changed over time. Specifically, 
+                                    we have a series of boxplots showing the distribution of broadband
+                                    access each year, as well as a heatmap that allows you to select 
+                                    a specific year and see the percentage of households in each 
+                                    county with broadband access."),
+                           helpText("On our other webpages, you can explore the impact of broadband 
+                           access on various aspects of consumer behavior. On the first page, we compare
+                           broadband access to the average number of trips taken to brick-and-mortar 
+                           retailers each year, and on the second page, we compare it to the average
+                           number of unique chains visited per year. On the third page, we compare 
+                           broadband access to the number of unique brands purchased per year. Each 
+                           page includes two heatmaps and a scatterplot, providing a detailed look 
+                           at the relationship between broadband access and each variable, as well 
+                           as the chart that plots the different percentiles over time."),
+                           helpText("We hope that our website helps you gain a better understanding of 
+                                    how the rise of broadband access has impacted consumer behavior 
+                                    in the retail industry. If you have any questions or comments, please 
+                                    don't hesitate to contact us.")
                        ),
 
                        mainPanel(
